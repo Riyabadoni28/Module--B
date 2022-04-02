@@ -32,8 +32,7 @@ class GraphOfBreathFirstSearch:
 
 
 graph = GraphOfBreathFirstSearch()
-graph .addEdgeNextNode(0, 1)
-graph .addEdgeNextNode(0, 2)
+graph .addEdgeNextNode(1, 1)
 graph .addEdgeNextNode(1, 2)
 graph .addEdgeNextNode(2, 0)
 graph .addEdgeNextNode(2, 3)
