@@ -1,0 +1,41 @@
+# Program of Bineary Search in Python 3
+
+def binarySearchImplement(arr_elements, first_index, last_index, searching_element):
+
+	if last_index >= first_index :
+
+		mid_element = first_index + (last_index - first_index) // 2
+
+		# If element is present at the middle itself then
+		if arr_elements[mid_element] == searching_element:
+			return mid_element
+
+		# If element is smaller than mid, then it then last_index is mid_element-1
+		
+		elif arr_elements[mid_element] > searching_element:
+			return binarySearchImplment(arr_elements, first_index, mid_element-1, searching)
+
+		# otherwise first_index is mid_element + 1
+		else:
+			return binarySearchImplement(arr_element, mid_element + 1, last_index, searhing_element)
+
+	else:
+		# if Element is not present in the array
+		return -1
+
+arr_elements = []
+size_of_array = int(input("Enter size of elements : "))
+
+for i in range(0, size_of_array):
+    arr_element= int(input())
+ 
+    arr_elements.append(arr_element)
+
+searching_number = int(input("Enter number which are find in array"))
+
+final_result = binarySearchImplement(arr_elements, 0, size_of_array-1, searching_number)
+
+if final_result != -1:
+	print("Element is present at index % d" % final_result)
+else:
+	print("Element is not present in array")

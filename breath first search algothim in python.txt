@@ -1,0 +1,45 @@
+# Program of Breath First Serach Algorithm
+from collections import defaultdict
+class GraphOfBreathFirstSearch:
+
+	# Constructor
+	def __init__(self):
+
+		
+		self.graphofbreathfirstsearch = defaultdict(list)
+
+	def addEdgeNextNode(self,u,vertix):
+		self.graphofbreathfirstsearch[u].append(vertix)
+
+	def BreathFirstSearch(self, source):
+
+		visited = [False] * (max(self.graphofbreathfirstsearch) + 1)
+
+		#quere create for graph
+		queue = []
+
+		queue.append(source)
+		visited[source] = True
+
+		while queue:
+			source = queue.pop(0)
+			print (source, end = " ")
+
+			for j in self.graphofbreathfirstsearch[source]:
+				if visited[j] == False:
+					queue.append(j)
+					visited[j] = True
+
+
+graph = GraphOfBreathFirstSearch()
+graph .addEdgeNextNode(0, 1)
+graph .addEdgeNextNode(0, 2)
+graph .addEdgeNextNode(1, 2)
+graph .addEdgeNextNode(2, 0)
+graph .addEdgeNextNode(2, 3)
+graph .addEdgeNextNode(3, 3)
+
+print ("There are Breadth First Traversal"
+				" (starting from vertex 2)")
+graph.BreathFirstSearch(2)
+

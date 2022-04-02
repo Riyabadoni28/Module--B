@@ -1,0 +1,33 @@
+
+let binarySearchImplment = function (arr_elements, searching_element, start_element, end_element) {
+	
+	// Base Condition to check who is greatest
+	if (start_element > end_element) 
+		return false;
+
+	// Find the middle index Element
+	let mid_element=Math.floor((start_element + end_element)/2);
+
+	// Compare middle element with given key searching element
+	if (arr_elements[mid_element]===searching_element) 
+		return true;
+		
+	if(arr_elements[mid_element] > searching_element)
+		return binarySearchImplment(arr_elements, searching_element, start_element, 		mid_element-1);
+	else
+
+		return binarySearchImplment(arr_elements, searching_element, mid_element+1, 	end_element);
+}
+let arr_elements = [5,34,63,245,65,343,242,545,434,232,5454,432,343];
+let searching_element = 5;
+
+if (binarySearchImplment(arr_elements, searching_element, 0, arr_elements.length-1))
+	document.write("Element found in Array List");
+else document.write("Element not found in Array List");
+
+searching_element = 6;
+
+if (binarySearchImplment(arr_elements, searching_element, 0, arr_elements.length-1))
+	document.write("Element found in Array List");
+else document.write("Element not found in Array List");
+									
