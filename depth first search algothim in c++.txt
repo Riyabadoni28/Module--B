@@ -1,0 +1,50 @@
+//Program of Depth First Search Algorithm
+#include <bits/stdc++.h>
+using namespace std;
+
+class GraphOfDepthFirstSearch {
+public:
+	map<int, bool> vertited;
+	map<int, list<int> > adjacent;
+
+	// function to add an edge to graph
+	void addEdgeForNextNode(int vertix, int width);
+
+	void DepthFirstSearch(int vertix);
+};
+
+void GraphOfDepthFirstSearch ::addEdgeForNextNode(int vertix, int width)
+{
+	adjacent[vertix].push_back(width); 
+}
+
+void GraphOfDepthFirstSearch ::DepthFirstSearch(int vertix)
+{
+	
+	vertited[vertix] = true;
+	cout << vertix << " ";
+
+	list<int>::iterator j;
+	for (j = adjacent[vertix].begin(); j != adjacent[vertix].end(); ++j)
+		if (!vertited[*j])
+			DepthFirstSearch(*j);
+}
+
+int main()
+{
+	
+	GraphOfDepthFirstSearch graph;
+	graph.addEdgeForNextNode(0, 0);
+	graph.addEdgeForNextNode(0, 1);
+	graph.addEdgeForNextNode(1, 2);
+	graph.addEdgeForNextNode(2, 2);
+	graph.addEdgeForNextNode(2, 3);
+	graph.addEdgeForNextNode(3, 0);
+
+	cout << "Following is Depth First Traversal"
+			" (starting from vertex 2) \n";
+	graph.DepthFirstSearch(2);
+
+	return 0;
+}
+
