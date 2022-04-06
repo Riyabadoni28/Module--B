@@ -1,0 +1,60 @@
+
+
+// Program of Depth First Search in JavaScript
+class GraphOfDepthFirstSearch
+{
+	
+	constructor(vertix)
+	{
+		this.Vertix = vertix;
+		this.adjacent = new Array(vertix);
+		for(let j = 0; j < vertix; j++)
+			this.adjacent[j] = [];
+	}
+	
+	addEdgeForNextNode(vertix, width)
+	{
+		
+		this.adjacent[vertix].push(width);
+	}
+	
+	DepthFirstSearchUtil(vertix, visitedvertix)
+	{
+		
+		visitedvertix[vertix] = true;
+		document.write(vertix + " ");
+		for(let j of this.adjacent[vertix].values())
+		{
+			let next = j
+			if (!visitedvertix[next])
+				this.DepthFirstSearchUtil(next, visitedvertix);
+		}
+	}
+	
+	DepthFirstSearch(vertix)
+	{
+		
+		let visitedvertix = new Array(this.Vertix);
+		for(let j = 0; j < this.Vertix; j++)
+			visitedvertix[j] = false;
+
+		this.DepthFirstSearchUtil(vertix, visitedvertix);
+	}
+}
+
+graph = new GraphOfDepthFirstSearch(4);
+
+graph.addEdgeForNextNode(1, 1);
+graph.addEdgeForNextNode(1, 2);
+graph.addEdgeForNextNode(2, 2);
+graph.addEdgeForNextNode(2, 0);
+graph.addEdgeForNextNode(2, 3);
+graph.addEdgeForNextNode(3, 3);
+
+document.write("Following is Depth First Search " +
+			"(starting from vertex 1 to end node)<br>");
+
+graph.DepthFirstSearch(1);
+
+
+
