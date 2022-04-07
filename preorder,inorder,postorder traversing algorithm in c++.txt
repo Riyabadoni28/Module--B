@@ -1,0 +1,86 @@
+// Program of Inorder, Preorder and Postorder traversal in C++
+#include <iostream>
+using namespace std;
+
+struct NodesForTree {
+	int dataValues;
+	struct NodesForTree *leftNode, *rightNode;
+};
+
+
+NodesForTree* newNodesForTree(int dataValues)
+{
+	NodesForTree* temps = new NodesForTree;
+	temps->dataValues = dataValues;
+	temps->leftNode = temps->rightNode = NULL;
+	return temps;
+}
+
+/* for Postorder Traversing */
+void printPostorderNodes(struct NodesForTree* NodesForTree)
+{
+	if (NodesForTree == NULL)
+		return;
+	
+	// for left side subtrees in postorder
+	printPostorderNodes(NodesForTree->leftNode);
+
+	// for right side subtrees in postorder
+	printPostorderNodes(NodesForTree->rightNode);
+
+	// dealing with the root node
+	cout << NodesForTree->dataValues << " ";
+}
+
+/* for Inorder Traversing */
+void printInorderNodes(struct NodesForTree* NodesForTree)
+{
+	if (NodesForTree == NULL)
+		return;
+
+	// for left side subtrees in inorder
+	printInorderNodes(NodesForTree->leftNode);
+
+	// dealing with the root node
+	cout << NodesForTree->dataValues << " ";
+
+	// for right side subtrees in inorder
+	printInorderNodes(NodesForTree->rightNode);
+}
+
+/* for Preorder Traversing */
+void printPreorderNodes(struct NodesForTree* NodesForTree)
+{
+	if (NodesForTree == NULL)
+		return;
+
+	/* dealing with the root node */
+	cout << NodesForTree->dataValues << " ";
+
+	/* for left side subtree in preorder */
+	printPreorderNodes(NodesForTree->leftNode);
+
+	/* for right side subtree in preorder */
+	printPreorderNodes(NodesForTree->rightNode);
+}
+
+/* main function of traversing*/
+int main()
+{
+	struct NodesForTree* root = newNodesForTree(115);
+	root->leftNode = newNodesForTree(234);
+	root->rightNode = newNodesForTree(54);
+	root->leftNode->leftNode = newNodesForTree(87);
+	root->leftNode->rightNode = newNodesForTree(245);
+
+	cout << "\nPreorder traversal of binary tree is \n";
+	printPreorderNodes(root);
+
+	cout << "\n\nInorder traversal of binary tree is \n";
+	printInorderNodes(root);
+
+	cout << "\n\nPostorder traversal of binary tree is \n";
+	printPostorderNodes(root);
+
+	return 0;
+}
