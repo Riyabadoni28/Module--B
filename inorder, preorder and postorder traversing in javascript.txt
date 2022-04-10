@@ -1,0 +1,68 @@
+
+// Inorder, Preorder and Postorder traversing in javaScript
+class NodeForTree {
+	constructor(value) {
+		this.key = value;
+		this.leftNode = null;
+		this.rightNode = null;
+	}
+}
+	var rootNode = null;
+
+
+/* This function for Postorder traversing */
+/* left -> right -> root */
+		function printPostorderNodes(nodevalue) {
+		if (nodevalue == null)
+			return;
+
+		printPostorderNodes(nodevalue.leftNode);
+		
+		printPostorderNodes(nodevalue.rightNode);
+
+		document.write(nodevalue.key + " ");
+	}
+	/* This function for Inorder traversing */
+	/* left -> root -> right */
+
+function printInorderNodes(nodevalue) {
+		if (nodevalue == null)
+			return;
+
+		printInorderNodes(nodevalue.leftNode);
+
+		document.write(nodevalue.key + " ");
+		
+		printInorderNodes(nodevalue.rightNode);
+	}
+	/* This function for Preorder Traversing */
+	/* root -> left -> right */
+
+	function printPreorderNodes(nodevalue) {
+		if (nodevalue == null)
+			return;
+
+		document.write(nodevalue.key + " ");
+
+		printPreorderNodes(nodevalue.leftNode);
+
+		printPreorderNodes(nodevalue.rightNode);
+		
+	}
+	
+		rootNode = new NodeForTree(1);
+		rootNode.leftNode = new NodeForTree(2);
+		rootNode.rightNode = new NodeForTree(3);
+		rootNode.leftNode.leftNode = new NodeForTree(4);
+		rootNode.leftNode.rightNode = new NodeForTree(5);
+
+		document.write("Preorder traversing for binary tree is <br/>");
+		printPreorderNodes(rootNode);
+
+		document.write("<br/>Inorder traversing for binary tree is <br/>");
+		printInorderNodes(rootNode);
+
+		document.write("<br/>Postorder traversing for binary tree is <br/>");
+		printPostorderNodes(rootNode);
+
+

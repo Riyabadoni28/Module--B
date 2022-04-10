@@ -1,0 +1,60 @@
+# Inorder,Preorder and PostOrder program in Python
+class NodesForTree :
+	def __init__(self, key):
+		self.leftNode = None
+		self.rightNode = None
+		self.value = key
+
+
+#This function for Inorder Traversing
+# left -> root -> right
+def printInorderNodes(rootNode):
+
+	if rootNode:
+
+		printInorderNodes(rootNode.leftNode)
+
+		print(rootNode.value),
+
+		printInorderNodes(rootNode.rightNode)
+
+
+# This function for Postorder Traversing 
+# left -> right -> root
+def printPostorderNodes(rootNode):
+
+	if rootNode:
+
+		printPostorderNodes(rootNode.leftNode)
+
+		printPostorderNodes(rootNode.rightNode)
+
+		print(rootNode.value),
+
+
+# A function for Preorder Traversing
+# root -> left -> right
+def printPreorderNodes(rootNode):
+
+	if rootNode:
+
+		print(rootNode.value),
+
+		printPreorderNodes(rootNode.leftNode)
+
+		printPreorderNodes(rootNode.rightNode)
+
+
+rootNode = NodesForTree (1)
+rootNode.leftNode = NodesForTree (2)
+rootNode.rightNode = NodesForTree (3)
+rootNode.leftNode.leftNode = NodesForTree (4)
+rootNode.leftNode.rightNode = NodesForTree (5)
+print ("Preorder traversal of binary tree is")
+printPreorderNodes(rootNode)
+
+print ("\nInorder traversal of binary tree is")
+printInorderNodes(rootNode)
+
+print ("\nPostorder traversal of binary tree is")
+printPostorderNodes(rootNode)
