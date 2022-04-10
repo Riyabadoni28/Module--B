@@ -1,0 +1,43 @@
+// Insertion sort Program in c++
+#include <bits/stdc++.h>
+using namespace std;
+
+void insertionSortOfArray(int arrElements[], int numbers)
+{
+	int m, keys, n;
+	for (m = 1; m < numbers; m++)
+	{
+		keys = arrElements[m];
+		n = m - 1;
+		while (n >= 0 && arrElements[n] > keys)
+		{
+			arrElements[n + 1] = arrElements[n];
+			n = n - 1;
+		}
+		arrElements[n + 1] = keys;
+	}
+}
+ 
+//Print Array after sorting
+void printArrayElementsInSortedOrder(int arrElements[], int numbers)
+{
+	int m;
+	for (m = 0; m < numbers; m++)
+		cout << arrElements[m] << " ";
+	cout << endl;
+}
+
+int main()
+{
+	int arrElements[20],numbers,i;
+	cout << "How much elements you want to sort";
+	cin >> numbers;
+	cout << "Enter numbers";
+	for( i=0;i<numbers;i++)
+	cin >> arrElements[i];
+	insertionSortOfArray(arrElements, numbers);
+	printArrayElementsInSortedOrder(arrElements, numbers);
+
+	return 0;
+}
+

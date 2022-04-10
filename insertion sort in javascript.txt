@@ -1,0 +1,33 @@
+// Insertion sort in JavaScript
+function insertionSortOfArrayElements(arrays, numbers)
+{
+	let m, keys, n;
+	for (m = 1; m < numbers; m++)
+	{
+		keys = arrays[m];
+		n = m - 1;
+
+		while (n >= 0 && arrays[n] > keys)
+		{
+			arrays[n + 1] = arrays[n];
+			n = n - 1;
+		}
+		arrays[n + 1] = keys;
+	}
+}
+
+function printArrayElements(arrays, numbers)
+{
+	let j;
+	for (j = 0; j < numbers; j++)
+		document.write(arrays[j] + " ");
+	
+}
+
+	let arrays = [34,342,654,222,7,23,34 ];
+	let numbers = arrays.length;
+
+	insertionSortOfArrayElements(arrays, numbers);
+	printArrayElements(arrays, numbers);
+	
+

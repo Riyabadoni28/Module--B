@@ -1,0 +1,26 @@
+# Insertion sort Program in Python
+
+def insertionSortOfArrayElement(arrays):
+
+	for m in range(1, len(arrays)):
+
+		keys = arrays[m]
+		n = m-1
+		while n >= 0 and keys < arrays[n] :
+				arrays[n + 1] = arrays[n]
+				n -= 1
+		arrays[n + 1] = keys
+
+
+arrays = []
+size_of_array = int(input("Enter size of Array"))
+print("Before insertion sort Array are:")
+for i in range(0, size_of_array):
+   array= int(input())
+   arrays.append(array)
+print("After Insetion Sort Array are:")
+insertionSortOfArrayElement(arrays)
+for j in range(len(arrays)):
+	print ("% d" % arrays[j])
+
+
