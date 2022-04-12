@@ -1,0 +1,19 @@
+# Selection sort in Python
+Array = []
+size_of_array = int(input("Enter size of Array"))
+print("Before insertion sort Array are:")
+for i in range(0, size_of_array):
+   array= int(input())
+   Array.append(array)
+for m in range(len(Array)):
+	
+	min_index = m
+	for n in range(m+1, len(Array)):
+		if Array[min_index] > Array[n]:
+			min_index = n
+					
+	Array[m], Array[min_index] = Array[min_index], Array[m]
+
+print ("Array after Sorting")
+for m in range(len(Array)):
+	print("%d" %Array[m])

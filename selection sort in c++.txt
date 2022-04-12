@@ -1,0 +1,48 @@
+// Selection sort Program in c++
+#include <bits/stdc++.h>
+using namespace std;
+
+void swapOfNumbers(int *xpointer, int *ypointer)
+{
+	int temp = *xpointer;
+	*xpointer = *ypointer;
+	*ypointer = temp;
+}
+
+void selectionSortOfArray(int arrays[], int number)
+{
+	int m, n, min_index;
+	for (m = 0; m < number-1; m++)
+	{
+		min_index = m;
+		for (n = m+1; n < number; n++)
+		if (arrays[n] < arrays[min_index])
+			min_index = n;
+
+		// Swapping is found minimum number
+		swapOfNumbers(&arrays[min_index], &arrays[m]);
+	}
+}
+
+/* Function for print array after sorting */
+void printArrayElements(int arrays[], int sizeOfArray)
+{
+	int j;
+	for (j=0; j < sizeOfArray; j++)
+		cout << arrays[j] << " ";
+	cout << endl;
+}
+
+int main()
+{
+	int arrays[50],n;
+	cout << "Enter size of Array";
+	cin >> n;
+	cout << "Enter Elements for Array";
+	for(int i=0;i<n;i++)
+	cin >> arrays[i];
+	selectionSortOfArray(arrays, n);
+	cout << "Sorted array: \n";
+	printArrayElements(arrays, n);
+	return 0;
+}
