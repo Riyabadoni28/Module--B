@@ -1,0 +1,76 @@
+// Merge Sort Program in C++
+#include <iostream>
+using namespace std;
+
+void mergeImplementation(int arrays[], int const leftSideNumber, int const midNumber, int const rightSideNumber)
+{
+	auto const subArrayOneNumber = midNumber - leftSideNumber + 1;
+	auto const subArrayTwoNumber = rightSideNumber - midNumber;
+
+	auto *leftSideArray = new int[subArrayOneNumber],
+		*rightSideArray = new int[subArrayTwoNumber];
+
+	for (auto m = 0; m < subArrayOneNumber; m++)
+		leftSideArray[m] = arrays[leftSideNumber + m];
+	for (auto n = 0; n < subArrayTwoNumber; n++)
+		rightSideArray[n] = arrays[midNumber + 1 + n];
+
+	auto indexOfSubArrayOneNumber = 0,
+		indexOfSubArrayTwoNumber = 0; 
+	int indexOfMergedArrayNumber = leftSideNumber; 
+
+	while (indexOfSubArrayOneNumber < subArrayOneNumber && indexOfSubArrayTwoNumber < subArrayTwoNumber) {
+		if (leftSideArray[indexOfSubArrayOneNumber] <= rightSideArray[indexOfSubArrayTwoNumber]) {
+			arrays[indexOfMergedArrayNumber] = leftSideArray[indexOfSubArrayOneNumber];
+			indexOfSubArrayOneNumber++;
+		}
+		else {
+			arrays[indexOfMergedArrayNumber] = rightSideArray[indexOfSubArrayTwoNumber];
+			indexOfSubArrayTwoNumber++;
+		}
+		indexOfMergedArrayNumber++;
+	}
+	while (indexOfSubArrayOneNumber < subArrayOneNumber) {
+		arrays[indexOfMergedArrayNumber] = leftSideArray[indexOfSubArrayOneNumber];
+		indexOfSubArrayOneNumber++;
+		indexOfMergedArrayNumber++;
+	}
+	while (indexOfSubArrayTwoNumber < subArrayTwoNumber) {
+		arrays[indexOfMergedArrayNumber] = rightSideArray[indexOfSubArrayTwoNumber];
+		indexOfSubArrayTwoNumber++;
+		indexOfMergedArrayNumber++;
+	}
+}
+
+
+void mergeSortImplementation(int arrays[], int const beginElement, int const endElement)
+{
+	if (beginElement >= endElement)
+		return; 
+
+	auto midElement = beginElement + (endElement - beginElement) / 2;
+	mergeSortImplementation(arrays, beginElement, midElement);
+	mergeSortImplementation(arrays, midElement + 1, endElement);
+	mergeImplementation(arrays, beginElement, midElement, endElement);
+}
+
+void printArrayElements(int Array[], int sizeOfArray)
+{
+	for (auto j = 0; j < sizeOfArray; j++)
+		cout << Array[j] << " ";
+}
+
+int main()
+{
+	int arrays[50];
+	int array_size;
+	cout << "Enter size of Array";
+	cin >> array_size;
+	cout << "Enter Array Elements";
+	for(int i=0;i<array_size;i++)
+	cin >> arrays[i];
+	mergeSortImplementation(arrays, 0, array_size - 1);
+	cout << "\nAfter Sorting Array are: \n";
+	printArrayElements(arrays, array_size);
+	return 0;
+}

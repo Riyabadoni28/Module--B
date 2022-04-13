@@ -1,0 +1,53 @@
+# Merge sort program in python
+def mergeSortImplementation(array):
+	if len(array) > 1:
+
+		midElement = len(array)//2
+
+		leftSideElements = array[:midElement]
+
+		rightSideElements = array[midElement:]
+
+		mergeSortImplementation(leftSideElements)
+
+		mergeSortImplementation(rightSideElements)
+
+		x = y = z = 0
+
+		while x < len(leftSideElements) and y < len(rightSideElements):
+			if leftSideElements[x] < rightSideElements[y]:
+				array[z] = leftSideElements[x]
+				x += 1
+			else:
+				array[z] = rightSideElements[y]
+				y += 1
+			z += 1
+		while x < len(leftSideElements):
+			array[z] = leftSideElements[x]
+			x += 1
+			z += 1
+
+		while y < len(rightSideElements):
+			array[z] = rightSideElements[y]
+			y += 1
+			z += 1
+
+def printListElements(array):
+	for j in range(len(array)):
+		print(array[j], end=" ")
+	print()
+
+if __name__ == '__main__':
+	Array = []
+	size_of_array = int(input("Enter size of Array"))
+	print("Before sorting Array are:")
+	for i in range(0, size_of_array):
+   	    array= int(input())
+            Array.append(array)
+	print("Given array is", end="\n")
+	printListElements(Array)
+	mergeSortImplementation(Array)
+	print("Sorted array is: ", end="\n")
+	printListElements(Array)
+
+# This code is contributed by Mayank Khanna
