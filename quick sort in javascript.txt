@@ -1,0 +1,51 @@
+// QuickSort Program in JavaScript
+
+function swapOfElement(array, m, n) {
+	let tempcon = array[m];
+	array[m] = array[n];
+	array[n] = tempcon;
+}
+
+
+function partitionOfElement(array, lowelement, highelement) {
+
+	let pivotelement = array[highelement];
+
+	let m = (lowelement - 1);
+
+	for (let n = lowelement; n <= highelement - 1; n++) {
+
+		if (array[n] < pivotelement) {
+			m++;
+			swapOfElement(array, m, n);
+		}
+	}
+	swapOfElement(array, m + 1, highelement);
+	return (m + 1);
+}
+
+function quickSortImplementation(array, lowelement, highelement) {
+	if (lowelement < highelement) {
+
+		let part = partitionOfElement(array, lowelement, highelement);
+
+		quickSortImplementation(array, lowelement, part - 1);
+		quickSortImplementation(array, part + 1, highelement);
+	}
+}
+
+function printArrayElements(array, sizeofarray) {
+	for (let j = 0; j < sizeofarray; j++)
+		document.write(array[j] + " ");
+
+}
+
+
+let array = [23,1,56,222,90,3,66,35,89,45,0];
+let sizeofarray  = array.length;
+document.write("Before Sorting Array are:");
+printArrayElements(array,sizeofarray);
+quickSortImplementation(array, 0, sizeofarray   - 1);
+document.write("After Sorting Array are:");
+printArrayElements(array, sizeofarray);
+

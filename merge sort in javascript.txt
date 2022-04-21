@@ -1,0 +1,72 @@
+<script>
+// Merge Sort Program in JavaScaript
+function mergeArrayElements(array, left, mid, right)
+{
+	var number1 = mid - left + 1;
+	var number2 = right - mid;
+
+	var Left = new Array(number1);
+	var Right = new Array(number2);
+
+	for (var m = 0; m < number1; m++)
+		Left[m] = array[left + m];
+	for (var n = 0; n < number2; n++)
+		Right[n] = array[mid + 1 + n];
+
+	var m = 0;
+	var n = 0;
+
+	var x = left;
+
+	while (m < number1 && n < number2) {
+		if (Left[m] <= Right[n]) {
+			array[x] = Left[m];
+			m++;
+		}
+		else {
+			array[x] = Right[n];
+			n++;
+		}
+		x++;
+	}
+	while (m < number1) {
+		array[x] = Left[m];
+		m++;
+		x++;
+	}
+	while (n < number2) {
+		array[x] = Right[n];
+		n++;
+		x++;
+	}
+}
+
+function mergeSortArrayImplementation(array,left, right){
+	if(left>=right){
+		return;
+	}
+	var mid =left+ parseInt((right-left)/2);
+	mergeSortArrayImplementation(array,left,mid);
+	mergeSortArrayImplementation(array,mid+1,right);
+	mergeArrayElements(array,left,mid,right);
+}
+
+function printArrayElements( Array, sizeofarray)
+{
+	for (var j = 0; j < sizeofarray; j++)
+	document.write( Array[j] + " ");
+}
+
+
+var arrays = [ 56,43,79,34,78,2,1,0,35,2,55,78,50 ];
+	var array_size = arrays.length;
+
+	document.write( "Before Sorting Array are <br>");
+	printArrayElements(arrays, array_size);
+
+	mergeSortArrayImplementation(arrays, 0, array_size - 1);
+
+	document.write( "<br>After Sorting Array are <br>");
+	printArrayElements(arrays, array_size);
+
+</script>

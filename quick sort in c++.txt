@@ -1,0 +1,57 @@
+/* QuickSort Program in C++ */
+#include <bits/stdc++.h>
+using namespace std;
+void swapOfNumber(int* apointer, int* bpointer)
+{
+	int temp = *apointer;
+	*apointer = *bpointer;
+	*bpointer = temp;
+}
+
+int partitionOfArray (int array[], int lowelement, int highelement)
+{
+	int pivot = array[highelement];
+	int m = (lowelement - 1);
+	for (int n = lowelement; n <= highelement - 1; n++)
+	{
+		if (array[n] < pivot)
+		{
+			m++; 
+			swapOfNumber(&array[m], &array[n]);
+		}
+	}
+	swapOfNumber(&array[m + 1], &array[highelement]);
+	return (m + 1);
+}
+
+void quickSortOfArrayElement(int array[50], int lowelement, int highelement)
+{
+	if (lowelement < highelement)
+	{
+		int part = partitionOfArray(array, lowelement, highelement);
+		quickSortOfArrayElement(array, lowelement, part - 1);
+		quickSortOfArrayElement(array, part + 1, highelement);
+	}
+}
+
+void printArrayElements(int array[], int sizeofarray)
+{
+	int j;
+	for (j = 0; j < sizeofarray; j++)
+		cout << array[j] << " ";
+	cout << endl;
+}
+
+int main()
+{
+	int array[50],n;
+	cout << "How much you want to Enter in Array?";
+	cin >> n;
+	cout << "\nEnter array Elements";
+	for(int i=0 ;i<n;i++)
+	cin >> array[i];
+	quickSortOfArrayElement(array, 0, n - 1);
+	cout << "After Sortin array is: \n";
+	printArrayElements(array, n);
+	return 0;
+}
