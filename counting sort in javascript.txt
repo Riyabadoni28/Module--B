@@ -1,0 +1,32 @@
+Javas<script>
+
+// Counting Sort Implementaion in JavaScript
+function countingSortImplmenation(array)
+{
+	var size = array.length;
+
+	var outputofelement = Array.from({length: size}, (_, m) => 0);
+
+	var counts = Array.from({length: 256}, (_, m) => 0);
+
+	for (var m = 0; m < size; ++m)
+		++counts[array[m].charCodeAt(0)];
+	for (var m = 1; m <= 255; ++m)
+		counts[m] += counts[m - 1];
+	for (var m = size - 1; m >= 0; m--) {
+		outputofelement[counts[array[m].charCodeAt(0)] - 1] = array[m];
+		--counts[array[m].charCodeAt(0)];
+	}
+	for (var m = 0; m < size; ++m)
+		array[m] = outputofelement[m];
+	return array;
+}
+
+	var array = [ 'r', 'i', 'y', 'a', 'b', 'a', 'd',
+				'o', 'n', 'i'];
+
+	array = countingSortImplmenation(array);
+	document.write("After Sorting Array is");
+	for (var j = 0; j < array.length; ++j)
+		document.write(array[j]);
+</script>

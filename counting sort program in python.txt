@@ -1,0 +1,29 @@
+# Counting Sort Program in Python
+
+def countingSortImplemenation(array):
+
+	outputofelement = [0 for m in range(len(array))]
+
+	counts = [0 for m in range(256)]
+
+	answar = ["" for _ in array]
+
+	for m in array:
+		counts[ord(m)] += 1
+
+	for m in range(256):
+		counts[m] += counts[m-1]
+
+	for m in range(len(array)):
+		outputofelement[counts[ord(array[m])]-1] = array[m]
+		counts[ord(array[m])] -= 1
+
+	for m in range(len(array)):
+		answar[m] = outputofelement[m]
+	return answar
+
+# array = "geeksforgeeks"
+array=[]
+array = input("Enter your string")
+answar = countingSortImplemenation(array)
+print("After Sorting Array  is % s" %("".join(answar)))

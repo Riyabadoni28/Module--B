@@ -1,0 +1,44 @@
+// Counting Sort Program in C++
+#include <bits/stdc++.h>
+#include <string.h>
+using namespace std;
+#define RANGEOFELEMENT 255
+
+void countingSortImplemntation(char array[])
+{
+	char output[strlen(array)];
+
+	int count[RANGEOFELEMENT + 1], m;
+	memset(count, 0, sizeof(count));
+
+	for (m = 0; array[m]; ++m)
+		++count[array[m]];
+
+	for (m = 1; m <= RANGEOFELEMENT; ++m)
+		count[m] += count[m - 1];
+
+	for (m = 0; array[m]; ++m) {
+		output[count[array[m]] - 1] = array[m];
+		--count[array[m]];
+	}
+
+	for (m = 0; array[m]; ++m)
+		array[m] = output[m];
+}
+
+int main()
+{
+	char array[50]; 
+	int n,i;
+	cout << "Enter size of array";
+	cin >> n;
+	cout << "Enter String";
+	for(i=0;i<n;i++)
+	cin >> array[i];
+	countingSortImplemntation(array);
+
+	cout << "Sorted character array is " << array;
+	return 0;
+}
+
+
