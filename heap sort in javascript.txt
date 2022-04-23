@@ -1,0 +1,47 @@
+  var array_size;
+function heap_root_implementation(inputvalue, m) {
+    var lft = 2 * m + 1;
+    var rgt = 2 * m + 2;
+    var maxvalue = m;
+
+    if (lft < array_size && inputvalue[lft] > inputvalue[maxvalue]) {
+        maxvalue = lft;
+    }
+
+    if (rgt < array_size && inputvalue[rgt] > inputvalue[maxvalue])     {
+        maxvalue = rgt;
+    }
+
+    if (maxvalue != m) {
+        swapnumber(inputvalue, m, maxvalue);
+        heap_root_implementation(inputvalue, maxvalue);
+    }
+}
+
+function swapnumber(inputvalue, index_X , index_Y) {
+    var tempvalue = inputvalue[index_X];
+
+    inputvalue[index_X] = inputvalue[index_Y];
+    inputvalue[index_Y] = tempvalue;
+}
+
+function heapSortImplementation(input) {
+    
+    array_size = input.length;
+
+    for (var m = Math.floor(array_size / 2); m >= 0; m -= 1)      {
+        heap_root_implementation(input, m);
+      }
+
+    for (m = input.length - 1; m > 0; m--) {
+        swapnumber(input, 0, m);
+        array_size--;
+      
+      
+        heap_root_implementation(input, 0);
+    }
+}
+
+var array = [67,34,1,0,23,56,789,43,10,-4,-3,12,-4];
+heapSortImplementation(array);
+console.log(array);

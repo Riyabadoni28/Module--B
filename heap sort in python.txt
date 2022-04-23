@@ -1,0 +1,36 @@
+# Heap Sort Program in Python
+def heap(array, size, m):
+	largestnumber = m 
+	left = 2 * m + 1	
+	right = 2 * m + 2	 
+
+	if left < size and array[m] < array[left]:
+		largestnumer = left
+
+	if right < size and array[largestnumber] < array[right]:
+		largestnumber = right
+
+	if largestnumber != m:
+		array[m],array[largestnumber] = array[largestnumber],array[m]
+		heap(array, size, largestnumber)
+
+def heapSortImplementation(array):
+	size = len(array)
+
+	for m in range(size // 2 - 1, -1, -1):
+		heap(array, size, m)
+
+	for m in range(size-1, 0, -1):
+		array[m], array[0] = array[0], array[m] 
+		heap(array, m, 0)
+
+array = []
+size_of_array = int(input("Enter size of Array"))
+print("Before sorting Array are:")
+for i in range(0, size_of_array):
+    Array= int(input())
+    array.append(Array)
+heapSortImplementation(array)
+print ("After Sorting array is")
+for j in range(size_of_array):
+	print ("%d" %array[j]),

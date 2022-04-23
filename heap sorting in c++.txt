@@ -1,0 +1,58 @@
+// Heap Sort Program in C++
+#include <iostream>
+
+using namespace std;
+
+void heap(int array[], int size, int m)
+{
+	int largestnumber = m;
+	int left = 2 * m + 1;
+	int right = 2 * m + 2;
+
+	if (left < size && array[left] > array[largestnumber])
+		largestnumber = left;
+
+	if (right < size && array[right] > array[largestnumber])
+		largestnumber = right;
+
+	if (largestnumber != m) {
+		swap(array[m], array[largestnumber]);
+
+		heap(array, size, largestnumber);
+	}
+}
+
+
+void heapSortImplementaion(int array[], int size)
+{
+	for (int m = size / 2 - 1; m >= 0; m--)
+		heap(array, size, m);
+
+	for (int m = size - 1; m > 0; m--) {
+		swap(array[0], array[m]);
+
+		heap(array, m, 0);
+	}
+}
+
+void printArrayElements(int array[], int size)
+{
+	for (int j = 0; j < size; ++j)
+		cout << array[j] << " ";
+	cout << "\n";
+}
+
+int main()
+{
+	int array[50],i,size;
+	cout << "Enter size of Array";
+	cin >> size;
+	cout << "Enter Array Elements";
+	for(i=0;i<size;i++)
+	cin >> array[i];
+	cout << "Before sorting array is \n";
+	printArrayElements(array,size);
+	heapSortImplementaion(array, size);
+	cout << "After Sorting array is \n";
+	printArrayElements(array, size);
+}
