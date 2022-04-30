@@ -1,0 +1,96 @@
+// Kurskal's Algorithm Program in C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class DataStructureUnit {
+	int* parentpointer;
+	int* rankpointer;
+
+public:
+	DataStructureUnit (int size)
+	{
+		parentpointer = new int[size];
+		rankpointer = new int[size];
+
+		for (int m = 0; m < size; m++) {
+			parentpointer[m] = -1;
+			rankpointer[m] = 1;
+		}
+	}
+
+	int findNextNode(int m)
+	{
+		if (parentpointer[m] == -1)
+			return m;
+
+		return parentpointer[m] = findNextNode(parentpointer[m]);
+	}
+
+	void UnionFunction(int M, int N)
+	{
+		int S1 = findNextNode(M);
+		int S2 = findNextNode(N);
+
+		if (S1 != S2) {
+			if (rankpointer[S1] < rankpointer[S2]) {
+				parentpointer[S1] = S2;
+				rankpointer[S2] += rankpointer[S1];
+			}
+			else {
+				parentpointer[S2] = S1;
+				rankpointer[S1] += rankpointer[S2];
+			}
+		}
+	}
+};
+
+class GraphImplementation {
+	vector<vector<int> > edgeslist;
+	int Vertex;
+
+public:
+	GraphImplementation (int Vertex) { this->Vertex = Vertex; }
+
+	void addNextEdge(int m, int n, int o)
+	{
+		edgeslist.push_back({ o, m, n });
+	}
+
+	void kruskals_algo_implementation()
+	{
+		sort(edgeslist.begin(), edgeslist.end());
+
+		DataStructureUnit  source(Vertex);
+		int answar = 0;
+		cout << "There are the edges in the "
+				"constructed MST"
+			<< endl;
+		for (auto edges : edgeslist) {
+			int o = edges[0];
+			int m = edges[1];
+			int n = edges[2];
+
+			if (source.findNextNode(m) != source.findNextNode(n)) {
+				source.UnionFunction(m, n);
+				answar += o;
+				cout << m << " -- " << n << " == " << o
+					<< endl;
+			}
+		}
+		cout << "Value of Minimum Cost Spanning Tree: " << answar;
+	}
+};
+int main()
+{
+	GraphImplementation G(4);
+	G.addNextEdge(0, 1, 13);
+	G.addNextEdge(1, 2, 17);
+	G.addNextEdge(2, 4, 14);
+	G.addNextEdge(2, 1, 60);
+	G.addNextEdge(0, 13, 25);
+
+	G.kruskals_algo_implementation();
+	return 0;
+}

@@ -1,0 +1,82 @@
+# Kruskal's algorithm Program in Python
+
+from collections import defaultdict
+
+# Class to represent a graph
+
+
+class GraphImplementation:
+
+	def __init__(self, numberofvertices):
+		self.Vertex = numberofvertices # No. of vertices
+		self.graph = [] # default dictionary
+		# to store graph
+
+	def addNextEdge(self, x, y, z):
+		self.graph.append([x, y, z])
+
+	def findNextNode(self, parentnode, m):
+		if parentnode[m] == m:
+			return m
+		return self.findNextNode(parentnode, parentnode[m])
+
+	def unionimplementation(self, parentnode, ranknode, m, n):
+		xrootnode = self.findNextNode(parentnode, u)
+		yrootnode = self.findNextNode(parentnode, v)
+
+		if ranknode[xrootnode] < ranknode[yrootnode]:
+			parentnode[xrootnode] = yrootnode
+		elif ranknode[xrootnode] > ranknode[yrootnode]:
+			parentnode[yrootnode] = xrootnode
+
+		else:
+			parentnode[yrootnode] = xrootnode
+			ranknode[xrootnode] += 1
+	def KruskaImplementation(self):
+        results = []  
+         
+        m = 0
+         
+        edge = 0
+ 
+        self.graph = sorted(self.graph,
+                            key=lambda item: item[2])
+ 
+        parentnode = []
+        ranknode = []
+ 
+        for node in range(self.Vertex):
+            parentnode.append(node)
+            ranknode.append(0)
+ 
+        while edge < self.Vertex - 1:
+            x, y, z = self.graph[m]
+            m = m + 1
+            u = self.findNext(parentnode, x)
+            v = self.findNext(parentnode, y)
+
+            if u != v:
+                edge = edge + 1
+                results.append([x, y, z])
+                self.unionimplementation(parentnode, ranknode, u, v)
+            # Else discard the edge
+ 
+        minimumCost = 0
+        print ("Edges are connected to :")
+        for x, y, weight in results:
+            minimumCost += weight
+            print("%d -- %d == %d" % (x, y, weight))
+        print("Value of Minimum Spanning Tree" , minimumCost)
+
+# Driver code
+g = GraphImplementation(4)
+g.addNextEdge(0, 1, 10)
+g.addNextEdge(0, 2, 6)
+g.addNextEdge(0, 3, 5)
+g.addNextEdge(1, 3, 15)
+g.addNextEdge(2, 3, 4)
+
+# Function call
+g.KruskalImplementation()
+
+
