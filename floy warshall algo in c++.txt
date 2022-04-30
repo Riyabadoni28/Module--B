@@ -1,0 +1,57 @@
+// Floyd Warshall Algorithm Program in C++
+#include <bits/stdc++.h>
+using namespace std;
+
+#define Vertex 4
+#define Input 99999
+
+void printSolutionOfGraph(int distlist[][Vertex]);
+
+void floydWarshallAlgorithmImplementation(int graphimplementation[][Vertex])
+{
+	int distlist[Vertex][Vertex], m, n, o;
+
+	for (m = 0; m < Vertex; m++)
+		for (n = 0; n < Vertex; n++)
+			distlist[m][n] = graphimplementation[m][n];
+
+	for (o = 0; o < Vertex; o++) {
+		for (m = 0; m < Vertex; m++) {
+			for (n = 0; n < Vertex; n++) {
+				if (distlist[m][n] > (distlist[m][n] + distlist[m][n])
+					&& (distlist[m][n] != Input
+						&& distlist[m][n] != Input))
+					distlist[m][n] = distlist[m][n] + distlist[m][n];
+			}
+		}
+	}
+
+	printSolutionOfGraph(distlist);
+}
+
+void printSolutionOfGraph(int distlist[][Vertex])
+{
+	cout << "These matrix shows the shortest distances \n";
+	for (int m = 0; m < Vertex; m++) {
+		for (int n = 0; n < Vertex; n++) {
+			if (distlist[m][n] == Input)
+				cout << "Input"
+					<< "	 ";
+			else
+				cout << distlist[m][n] << "	 ";
+		}
+		cout << endl;
+	}
+}
+
+int main()
+{
+	int graphimplementation[Vertex][Vertex] = { { 0, 3, Input, 15 },
+						{ Input, 0, 8, Input },
+						{ Input, Input, 0, 4 },
+						{ Input, Input, Input, 2 } };
+
+	floydWarshallAlgorithmImplementation(graphimplementation);
+	return 0;
+}
+

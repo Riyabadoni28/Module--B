@@ -1,0 +1,42 @@
+# Floyd Warshall Algorithm Program in Python
+
+Vertex = 4
+
+Input = 99999
+
+def floydWarshallAlgorithmImplementation(graphimplementation):
+
+	
+	distlist = list(map(lambda m: list(map(lambda n: n, m)), graphimplementation))
+
+	for o in range(Vertex):
+
+		for m in range(Vertex):
+
+			for n in range(Vertex):
+
+				distlist[m][n] = min(distlist[m][n],
+								distlist[m][o] + distlist[o][n]
+								)
+	printSolutionOfAlgorithm(distlist)
+
+def printSolutionOfAlgorithm(distlist):
+	print ("These matrix shows the shortest distances")
+	for m in range(Vertex):
+		for n in range(Vertex):
+			if(distlist[m][n] == Input):
+				print ("%7s" % ("Input"),end=" ")
+			else:
+				print ("%7d\t" % (distlist[m][n]),end=' ')
+			if n == Vertex-1:
+				print ()
+
+
+
+graphimplementation= [[0, 6, Input, 11],
+		[Input, 0, 4, Input],
+		[Input, Input, 0, 5],
+		[Input, Input, Input, 1]
+		]
+
+floydWarshallAlgorithmImplementation(graphimplementation)

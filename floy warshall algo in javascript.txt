@@ -1,0 +1,59 @@
+<script>
+	//Floyd Warshall Algorithm Program in javaScript
+
+	var Input = 99999;
+	class AllPairShortPathImplementation {
+		constructor() {
+		this.Vertex = 4;
+		}
+
+		floydWarshallAlgorithmImplementation(graphimplementation) {
+		var distlist = Array.from(Array(this.Vertex), () => new Array(this.Vertex).fill(0));
+		var m, n, o;
+
+		for (m = 0; m < this.Vertex; m++) {
+			for (n = 0; n < this.Vertex; n++) {
+			distlist[m][n] = graphimplementation[m][n];
+			}
+		}
+
+		for (o = 0; o < this.Vertex; o++) {
+			for (m = 0; m < this.Vertex; m++) {
+			for (n = 0; n < this.Vertex; n++) {
+				if (distlist[m][o] + distlist[o][n] < distlist[m][n]) {
+				distlist[m][n] = distlist[m][o] + distlist[o][n];
+				}
+			}
+			}
+		}
+
+		this.printSolutionImplementation(distlist);
+		}
+
+		printSolutionImplementation(distlist) {
+		document.write(
+			"In below matrix shows the shortest");
+		for (var m = 0; m < this.Vertex; ++m) {
+			for (var n = 0; n < this.Vertex; ++n) {
+			if (distlist[m][n] == Input) {
+			//	document.write(" Input value ");
+			} else {
+				document.write(distlist[m][n] + " ");
+			}
+			}
+
+		}
+		}
+	}
+	var graphimplementation= [
+		[0, 6, Input, 16],
+		[Input, 0, 7, Input],
+		[Input, Input, 2, 8],
+		[Input, Input, Input, 4],
+	];
+
+	var path = new AllPairShortPathImplementation ();
+
+	path .floydWarshallAlgorithmImplementation(graphimplementation);
+	
+	</script>
