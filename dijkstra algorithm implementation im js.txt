@@ -1,0 +1,78 @@
+<script>
+
+// Dijkstra's Algorithm in JavaScript
+let Vertex = 9;
+
+function minDistanceBetweenNodes(distValue,sptSetValue)
+{
+	
+	let minValue = Number.MAX_VALUE;
+	let min_index_value = -1;
+	
+	for(let vertex = 0; vertex < Vertex; vertex++)
+	{
+		if (sptSetValue[vertex] == false && distValue[vertex] <= minValue)
+		{
+			minValue = distValue[vertex];
+			min_index_value = vertex;
+		}
+	}
+	return min_index_value;
+}
+
+function printSolutionElements(distValue)
+{
+	document.write("Vertex \t\t Distance from Source to End node<br>");
+	for(let m = 0; m < Vertex; m++)
+	{
+		document.write(m + " \t\t " +
+				distValue[m]);
+	}
+}
+
+function dijkstraAlgoritmImplementation(graphimplementation, source)
+{
+	let distValue = new Array(Vertex);
+	let sptSetValue = new Array(Vertex);
+	
+	for(let m = 0; m < Vertex; m++)
+	{
+		distValue[m] = Number.MAX_VALUE;
+		sptSetValue[m] = false;
+	}
+	
+	distValue[source] = 0;
+	
+	for(let counts = 0; counts < Vertex - 1; counts++)
+	{
+		
+		let i = minDistanceBetweenNodes(distValue, sptSetValue);
+		
+		sptSetValue[i] = true;
+		
+		for(let vertex = 0; vertex < Vertex; vertex++)
+		{
+			
+			if (!sptSetValue[vertex] && graphimplementation[i][vertex] != 0 &&
+				distValue[i] != Number.MAX_VALUE &&
+				distValue[i] + graphimplementation[i][vertex] < distValue[vertex])
+			{
+				distValue[vertex] = distValue[i] + graphimplementation[i][vertex];
+			}
+		}
+	}
+	printSolutionElements(distValue);
+}
+
+let Graph = [ [ 10, 14, 1, 0, 9, 0, 0, 7, 0 ],
+			[ 40, 89, 18, 0, 0, 10, 0, 18, 0 ],
+			[ 0, 8, 0, 37, 30, 42, 0, 20, 2 ],
+			[ 0, 0, 17, 50, 93, 19, 0, 0, 0],
+			[ 0, 0, 0, 19, 0, 11, 0, 0, 0 ],
+			[ 0, 0, 4, 10, 15, 0, 2, 0, 0],
+			[ 0, 40, 0, 0, 0, 2, 0, 1, 6 ],
+			[ 8, 11, 70, 0, 0, 0, 1, 0, 7 ],
+			[ 0, 0, 9, 0, 10, 0, 6, 7, 0 ] ]
+dijkstraAlgoritmImplementation(Graph, 0);
+
+</script>

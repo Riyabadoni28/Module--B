@@ -1,0 +1,67 @@
+//Dijkstra's Algorithm Implementaion in C++
+
+#include <iostream>
+using namespace std;
+#include <limits.h>
+
+#define Vertex 9
+
+int minDistanceBetweenNodes(int distValue[], bool sptSetValue[])
+{
+	int minvalue = INT_MAX, min_index_value;
+
+	for (int vertex = 0; vertex < Vertex; vertex++)
+		if (sptSetValue[vertex] == false && distValue[vertex] <= minvalue)
+			minvalue = distValue[vertex], min_index_value = vertex;
+
+	return min_index_value;
+}
+
+void printSolutionElements(int distValue[])
+{
+	cout <<"Vertexs \t Distance from Source to end node" << endl;
+	for (int m = 0; m < Vertex; m++)
+		cout << m << " \t\t"<<distValue[m]<< endl;
+}
+
+void dijkstraAlgorithmImplementation(int graphimplementation[Vertex][Vertex], int source)
+{
+	int distValue[Vertex]; 
+
+	bool sptSetValue[Vertex]; 
+	for (int m = 0; m < Vertex; m++)
+		distValue[m] = INT_MAX, sptSetValue[m] = false;
+
+	distValue[source] = 0;
+
+	for (int countvalue = 0; countvalue < Vertex - 1; countvalue++) {
+		int i = minDistanceBetweenNodes(distValue, sptSetValue);
+		sptSetValue[i] = true;
+
+		for (int vertex = 0; vertex < Vertex; vertex++)
+
+			if (!sptSetValue[vertex] && graphimplementation[i][vertex] && distValue[i] != INT_MAX
+				&& distValue[i] + graphimplementation[i][vertex] < distValue[vertex])
+				distValue[vertex] = distValue[i] + graphimplementation[i][vertex];
+	}
+	printSolutionElements(distValue);
+}
+
+int main()
+{
+
+	int Graph[Vertex][Vertex] = { { 0, 6, 5, 0, 0, 4, 0, 9, 0 },
+						{ 6, 2, 9, 0, 6, 0, 0, 15, 0 },
+						{ 3, 9, 0, 1, 0, 40, 44, 0, 22 },
+						{ 10, 0, 7, 0, 9, 34, 0, 0, 0 },
+						{ 0, 0, 0, 49, 0, 10, 30, 0, 0 },
+						{ 0, 0, 4, 14, 11, 0, 2, 0, 88 },
+						{ 0, 0, 0, 0, 0, 2, 0, 33, 6 },
+						{ 8, 19, 0, 56, 0, 0, 144, 0, 7 },
+						{ 0, 0, 20, 0, 0, 24, 6, 7, 0 } };
+
+	dijkstraAlgorithmImplementation(Graph, 0);
+
+	return 0;
+}
+

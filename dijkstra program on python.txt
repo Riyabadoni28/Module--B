@@ -1,0 +1,58 @@
+# Dijkstra's Algorithm Implementation in Pyhton
+
+import sys
+
+class GraphImplementation():
+
+	def __init__(self, vertex):
+		self.Vertex = vertex
+		self.graphimplementation = [[0 for column in range(vertex)]
+					for row in range(vertex)]
+
+	def printSolutionElements(self, distValue):
+		print("Vertex \tDistance from Source to End node")
+		for nodevalue in range(self.Vertex):
+			print(nodevalue, "\t", distValue[nodevalue])
+
+	def minDistanceBetweenNodes(self, distValue, sptSetValue):
+
+		minValue = sys.maxsize
+
+		for i in range(self.Vertex):
+			if distValue[i] < minValue and sptSetValue[i] == False:
+				minValue = distValue[i]
+				min_index_value = i
+
+		return min_index_value
+
+	def dijkstraAlgorithmImplementation(self, source):
+
+		distValue = [sys.maxsize] * self.Vertex
+		distValue[source] = 0
+		sptSetValue = [False] * self.Vertex
+
+		for couts in range(self.Vertex):
+			m = self.minDistanceBetweenNodes(distValue, sptSetValue)
+
+			sptSetValue[m] = True
+			for n in range(self.Vertex):
+				if self.graphimplementation[m][n] > 0 and sptSetValue[n] == False and \
+				distValue[n] > distValue[m] + self.graphimplementation[m][n]:
+						distValue[n] = distValue[m] + self.graphimplementation[m][n]
+
+		self.printSolutionElements(distValue)
+
+graph = GraphImplementation(9)
+graph.graphimplementation = [[1, 40, 0, 34, 1, 4, 8, 8, 0],
+		[14, 10, 48, 0, 40, 0, 45, 64, 0],
+		[33, 18, 0, 27, 0, 4, 0, 0, 2],
+		[0, 0, 75, 50, 49, 14, 0, 0, 0],
+		[0, 30, 0, 9, 55, 10, 33, 50, 0],
+		[0, 0, 45, 14, 10, 66, 2, 30, 0],
+		[0, 66, 50, 0, 40, 26, 0, 19, 6],
+		[8, 11, 34, 0, 0, 0, 1, 0, 7],
+		[0, 0, 2, 0, 0, 66, 6, 7, 0]
+		];
+
+graph.dijkstraAlgorithmImplementation(0);
+
