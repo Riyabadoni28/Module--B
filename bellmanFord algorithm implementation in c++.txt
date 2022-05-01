@@ -1,0 +1,108 @@
+// Bellman-Ford Algorithm Program in C++
+#include <bits/stdc++.h>
+
+struct EdgesForGraph {
+	int source, destination, weightValue;
+};
+
+struct GraphImplementation {
+	int Vertex, Edges;
+
+	struct EdgesForGraph* edges;
+};
+
+struct GraphImplementation* createGraphImplemetation(int Vertex, int Edges)
+{
+	struct GraphImplementation* graphImplementation = new GraphImplementation;
+	graphImplementation ->Vertex = Vertex;
+	graphImplementation ->Edges = Edges;
+	graphImplementation ->edges = new EdgesForGraph[Edges];
+	return graphImplementation ;
+}
+
+void printArraysElements(int distlist[], int number)
+{
+	printf("Vertexs Distance from Source to Destination\n");
+	for (int m = 0; m < number; ++m)
+		printf("%d \t\t %d\n", m, distlist[m]);
+}
+
+void BellmanFordAlgorithmImplementaion(struct GraphImplementation* graphImplementation, int source)
+{
+	int Vertex = graphImplementation->Vertex;
+	int Edges = graphImplementation->Edges;
+	int distlist[Vertex];
+
+	for (int m = 0; m < Vertex; m++)
+		distlist[m] = INT_MAX;
+	distlist[source] = 0;
+
+	for (int m = 1; m <= Vertex - 1; m++) {
+		for (int n = 0; n < Edges; n++) {
+			int i = graphImplementation->edges[n].source;
+			int j = graphImplementation->edges[n].destination;
+			int weightValue = graphImplementation->edges[n].weightValue;
+			if (distlist[i] != INT_MAX
+				&& distlist[i] + weightValue < distlist[j])
+				distlist[j] = distlist[i] + weightValue;
+		}
+	}
+
+	for (int m = 0; m < Edges; m++) {
+		int i = graphImplementation->edges[m].source;
+		int j = graphImplementation->edges[m].destination;
+		int weightValue = graphImplementation->edges[m].weightValue;
+		if (distlist[i] != INT_MAX
+			&& distlist[i] + weightValue < distlist[j]) {
+			printf("These Graph contains negative weight cycles");
+			return; 
+		}
+	}
+
+	printArraysElements(distlist, Vertex);
+
+	return;
+}
+
+int main()
+{
+	int Vertex = 5; 
+	int Edge = 8; 
+	struct GraphImplementation* graphimplementation = createGraphImplemetation(Vertex, Edge);
+
+	graphimplementation ->edges[0].source = 0;
+	graphimplementation ->edges[0].destination = 3;
+	graphimplementation ->edges[0].weightValue = -1;
+
+	graphimplementation ->edges[1].source = 0;
+	graphimplementation ->edges[1].destination = 4;
+	graphimplementation ->edges[1].weightValue = 3;
+
+	graphimplementation ->edges[2].source = 1;
+	graphimplementation ->edges[2].destination = 3;
+	graphimplementation ->edges[2].weightValue = 4;
+
+	graphimplementation ->edges[3].source = 1;
+	graphimplementation ->edges[3].destination = 4;
+	graphimplementation ->edges[3].weightValue = 3;
+
+	graphimplementation ->edges[4].source = 1;
+	graphimplementation ->edges[4].destination = 5;
+	graphimplementation ->edges[4].weightValue = 3;
+
+	graphimplementation ->edges[5].source = 4;
+	graphimplementation ->edges[5].destination = 3;
+	graphimplementation ->edges[5].weightValue = 6;
+
+	graphimplementation ->edges[6].source = 4;
+	graphimplementation ->edges[6].destination = 2;
+	graphimplementation ->edges[6].weightValue = 2;
+
+	graphimplementation ->edges[7].source = 5;
+	graphimplementation ->edges[7].destination = 4;
+	graphimplementation ->edges[7].weightValue = -4;
+
+	BellmanFordAlgorithmImplementaion(graphimplementation , 0);
+
+	return 0;
+}
