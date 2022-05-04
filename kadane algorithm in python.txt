@@ -1,0 +1,23 @@
+# Kadane Algorithm in Python
+from sys import maxint
+def maximumSubArraySumOfElements(array,size_of_array):
+	
+	maximum_so_far_of_array = -maxint - 1
+	maximum_ending_here_of_array = 0
+	
+	for m in range(0, size_of_array):
+		maximum_ending_here_of_array = max_ending_here_of_array + array[m]
+		if (maximum_so_far_of_array < max_ending_here_of_array):
+			maximum_so_far_of_array = maximum_ending_here_of_array
+
+		if maximum_ending_here_of_array < 0:
+			maximum_ending_here_of_array = 0
+	return maximum_so_far_of_array
+
+arrays = []
+size_of_array = int(input("Enter size of Array"))
+print("Before insertion sort Array are:")
+for i in range(0, size_of_array):
+   array= int(input())
+   arrays.append(array)
+print ("Maximum sum of Array Elements", maximumSubArraySumOfElements(arrays,size_of_array))

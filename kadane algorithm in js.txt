@@ -1,0 +1,25 @@
+// kadane Algorithm Program in JavaScript
+
+function maximumSubArraySumOfArray(array, size_of_array)
+{
+	var maximumintvalue = Math.pow(2, 53)
+	var maximum_so_far_of_array = -maximumintvalue - 1
+	var maximum_ending_here_of_array = 0
+	
+	for (var m = 0; m < size_of_array; m++)
+	{
+		maximum_ending_here_of_array = maximum_ending_here_of_array + array[m]
+		if (maximum_so_far_of_array < maximum_ending_here_of_array)
+		maximum_so_far_of_array = maximum_ending_here_of_array
+
+		if (maximum_ending_here_of_array < 0)
+			maximum_ending_here_of_array = 0
+	}
+	return maximum_so_far_of_array
+}
+
+var array = [ -4,3,90,42,12,50,29,40,54,13,18 ]
+document.write("Minimum Sum of Array Element",
+			maximumSubArraySumOfArray(array, array.length))
+
+

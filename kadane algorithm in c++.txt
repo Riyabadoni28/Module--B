@@ -1,0 +1,34 @@
+// Kadane Algorithm Program in C++
+#include<iostream>
+#include<climits>
+using namespace std;
+
+int maximumSubArraysSumOfElements(int array[], int size_of_array)
+{
+	int maximum_so_far_of_array = INT_MIN, maximum_ending_here_of_array = 0;
+
+	for (int m = 0; m < size_of_array; m++)
+	{
+		maximum_ending_here_of_array = maximum_ending_here_of_array + array[m];
+		if (maximum_so_far_of_array < maximum_ending_here_of_array)
+			maximum_so_far_of_array = maximum_ending_here_of_array;
+
+		if (maximum_ending_here_of_array < 0)
+			maximum_ending_here_of_array = 0;
+	}
+	return maximum_so_far_of_array;
+}
+
+// main method of function
+int main()
+{
+	int array[50],size_of_array,i;
+	cout << "Enter size of Array";
+	cin >> size_of_array;
+	cout << "Enter Elements of Array";
+	for(i = 0; i < size_of_array; i++)
+	cin >> array[i];
+	int maximum_sum_of_array_elements = maximumSubArraysSumOfElements(array, size_of_array);
+	cout << "Maximum Sum Of Array Elements " << maximum_sum_of_array_elements ;
+	return 0;
+}
