@@ -1,0 +1,97 @@
+// Lee Algorithm Program in C++
+#include <bits/stdc++.h>
+using namespace std;
+#define VALUEOFROW 9
+#define VALUEOFCOL 10
+
+struct PointToNumber
+{
+	int i;
+	int j;
+};
+
+struct queueNodesImplementation
+{
+	PointToNumber point;
+	int distination; 
+};
+
+bool isValidValueOfElement(int row_value, int col_value)
+{
+	return (row_value >= 0) && (row_value < VALUEOFROW) &&
+		(col_value >= 0) && (col_value < VALUEOFCOL);
+}
+
+int rowNumbers[] = {-1, 1, 0, 1};
+int colNumbers[] = {0, -1, 2, 1};
+
+int bestFirstSearch(int math[][VALUEOFCOL], PointToNumber source, PointToNumber destination)
+{
+	if (!math[source.i][source.j] || !math[destination.i][destination.j])
+		return -1;
+
+	bool visitednodes[VALUEOFROW][VALUEOFCOL];
+	memset(visitednodes, false, sizeof visitednodes);
+	
+	visitednodes[source.i][source.j] = true;
+
+	queue<queueNodesImplementation> queue;
+	
+	queueNodesImplementation sources = {source, 0};
+	queue.push(sources); // Enqueue source cell
+
+	while (!queue.empty())
+	{
+		queueNodesImplementation current = queue.front();
+		PointToNumber point = current.point;
+
+		if (point.i == destination.i && point.j == destination.j)
+			return current.distination;
+		queue.pop();
+
+		for (int m = 0; m < 4; m++)
+		{
+			int row_value = point.i + rowNumbers[m];
+			int col_value = point.j + colNumbers[m];
+			
+			if (isValidValueOfElement(row_value, col_value) && math[row_value][col_value] &&
+			!visitednodes[row_value][col_value])
+			{
+				visitednodes[row_value][col_value] = true;
+				queueNodesImplementation Adjcentcellvalue = { {row_value, col_value},
+									current.distination + 1 };
+				queue.push(Adjcentcellvalue);
+			}
+		}
+	}
+
+	return -1;
+}
+
+int main()
+{
+	int math[VALUEOFROW][VALUEOFCOL] =
+	{
+		{ 2, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+		{ 1, 0, 2, 0, 1, 1, 1, 0, 1, 1 },
+		{ 1, 1, 1, 0, 2, 1, 0, 2, 0, 1 },
+		{ 0, 0, 0, 0, 1, 0, 0, 0, 1, 2 },
+		{ 1, 1, 1, 0, 1, 1, 1, 0, 2, 0 },
+		{ 1, 1, 1, 2, 2, 2, 0, 2, 0, 0 },
+		{ 2, 1, 1, 1, 1, 1, 1, 1, 1, 2 },
+		{ 1, 1, 2, 2, 2, 2, 1, 2, 2, 2 },
+		{ 1, 2, 1, 1, 0, 0, 2, 0, 0, 2 }
+	};
+
+	PointToNumber source = {0, 0};
+	PointToNumber destination = {2, 4};
+
+	int distination = bestFirstSearch(math, source, destination);
+
+	if (distination != -1)
+		cout << "The Value of Shortest Path is " << distination ;
+	else
+		cout << "Here no Shortest Path exist";
+
+	return 0;
+}

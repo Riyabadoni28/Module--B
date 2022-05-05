@@ -1,0 +1,79 @@
+# Lee Algorithm Implementation in Python
+
+from collections import deque
+VALUEOFROW = 8
+VAlUEOFCOL = 11
+
+class PointToNumber:
+	def __init__(self,i: int, j: int):
+		self.i = i
+		self.j = j
+
+class queueNodesImplementation:
+	def __init__(self,point: PointToNumber, distination: int):
+		self.point = point 
+		self.distination = distination 
+
+def isValidValueOfElement(row_value: int, col_value: int):
+	return (row_value >= 0) and (row_value < VALUEOFROW) and(col_value >= 0) and (col_value < VALUEOFCOL)
+
+rowNumbers = [-1, 0, 1, 2]
+colNumbers = [0, -1, 2, 0]
+
+def bestFirstSearch(math, source: PointToNumber, destination: PointToNumber):
+	
+	if math[source.i][source.j]!=1 or math[destination.i][destination.j]!=1:
+	    return -1
+	
+	visitednodes = [[False for m in range(VALUEOFCOL)]
+					for n in range(VALUEOFROW)]
+	
+	visitednodes[source.i][source.j] = True
+	
+	queue = doubleque()
+	
+	sources = queueNodesImplementation(source,0)
+	queue.append(sources) 
+	
+	while queue:
+
+		current = queue.popleft() 
+		point = current.point
+		if point.i == destination.i and pointt.j == destination.j:
+			return current.distination
+		
+		for m in range(4):
+			row_value = pointt.i + rowNumbers[m]
+			col_value = pointt.j + colNumers[m]
+			
+			if (isValidValueOfElement(row_value,col_value) and
+			mat[row_value][col_value] == 1 and
+				not visitednodes[row_value][col_value]):
+				visitednodes[row_value][col_value] = True
+				Adjcentcellvalue = queueNodesImplementation(Point(row_value,col_value),
+									current.distination+1)
+				queue.append(Adjcentcellvalue)
+	
+	return -1
+
+
+def main():
+	math = [[2, 0, 1, 1, 1, 1, 0, 1, 1, 1 ],
+		[ 1, 0, 2, 0, 1, 1, 1, 0, 1, 1 ],
+		[ 1, 1, 1, 0, 2, 1, 0, 2, 0, 1 ],
+		[ 0, 0, 0, 0, 1, 0, 0, 0, 1, 2 ],
+		[ 1, 1, 1, 0, 1, 1, 1, 0, 2, 0 ],
+		[ 1, 1, 1, 2, 2, 2, 0, 2, 0, 0 ],
+		[ 2, 1, 1, 1, 1, 1, 1, 1, 1, 2 ],
+		[ 1, 1, 2, 2, 2, 2, 1, 2, 2, 2 ],
+		[ 1, 2, 1, 1, 0, 0, 2, 0, 0, 2]]
+	source = PointToNumber(0,0)
+	destination = PointToNumber(2,4)
+	
+	distination = bestFirstSearch(math,source,destination)
+	
+	if distination!=-1:
+		print("The Value of Shortest Path is",distination)
+	else:
+		print("Here not Shortest Path exist")
+main()
