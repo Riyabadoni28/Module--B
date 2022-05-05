@@ -1,0 +1,44 @@
+# flood fill algorithm in Python
+
+X = 8
+Y = 8
+
+def floodFillUtilImplementation(screenvalue, i, j, prevCValue, newCValue):
+
+	if (i < 0 or i >= X or j < 0 or
+		j >= Y or screenvalue[i][j] != prevCValue or
+		screenvalue[i][j] == newCValue):
+		return
+
+	screenvalue[i][j] = newCValue
+
+	floodFillUtilImplementation(screenvalue, m + 1, n, prevCValue, newCValue)
+	floodFillUtilImplementation(screenvalue, m - 1, n, prevCValue, newCValue)
+	floodFillUtilImplementation(screenvalue, m, n + 1, prevCValue, newCValue)
+	floodFillUtilImplementation(screenvalue, m, n - 1, prevCValue, newCValue)
+
+def floodFillImplmentation(screenvalue, m, n, newCValue):
+	prevCValue = screenvalue[m][n]
+	if(prevCValue==newCValue):
+	    return floodFillUtilImplementation(screenvalue, m, n, prevCValue, newCValue)
+
+screenvalue = [[2, 2, 2, 2, 2, 2, 2, 2],
+	    [2, 1, 1, 1, 1, 1, 0, 0],
+		[2, 0, 0, 1, 1, 0, 2, 2],
+		[2, 2, 2, 2, 2, 0, 2, 1],
+	    [2, 1, 1, 2, 2, 0, 2, 1],
+		[2, 2, 2, 3, 3, 3, 3, 1],
+		[2, 2, 2, 2, 2, 3, 2, 2],
+		[2, 2, 2, 2, 2, 3, 3, 2]]
+
+m = 4
+n = 4
+newCValue = 3
+floodFillImplmentation(screenvalue, m, n, newCValue)
+
+print ("Updated screen after calling to floodFill:")
+for m in range(X):
+	for n in range(Y):
+		print(screenvalue[m][n], end = ' ')
+	print()
+

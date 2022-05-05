@@ -1,0 +1,44 @@
+	// flood fill algorithm in JavaScript
+	var X = 8;
+	var Y = 8;
+	function floodFillUtilImplementation(screenvalue, m, n, prevCValue, newCValue)
+	{
+	
+		if (m < 0 || m >= X || n < 0 || n >= Y) return;
+		if (screenvalue[m][n] != prevCValue)
+		return;
+		if (screenvalue[m][n] == newCValue)
+		return;
+
+		floodFillUtilImplementation(screenvalue, m+1, n, prevCValue, newCValue);
+		floodFillUtilImplementation(screenvalue, m-1, n, prevCValue, newCValue);
+		floodFillUtilImplementation(screenvalue, m, n+1, prevCValue, newCValue);
+		floodFillUtilImplementation(screenvalue, m, n-1, prevCValue, newCValue);
+	}
+
+	function floodFillImplementation(screenvalue, m, n, newCValue) {
+		var prevCValue = screenvalue[m][n];
+	if(prevCValue==newCValue) return;
+		floodFillUtilImplementation(screenvalue, m, n, prevCValue, newCValue);
+	}
+	var screenvalue = [
+		[2, 2, 2, 2, 2, 2, 2, 2],
+	    [2, 1, 1, 1, 1, 1, 0, 0],
+		[2, 0, 0, 1, 1, 0, 2, 2],
+		[2, 2, 2, 2, 2, 0, 2, 1],
+	    [2, 1, 1, 2, 2, 0, 2, 1],
+		[2, 2, 2, 3, 3, 3, 3, 1],
+		[2, 2, 2, 2, 2, 3, 2, 2],
+		[2, 2, 2, 2, 2, 3, 3, 2],
+	];
+	var m = 4,
+		n = 4,
+		newCValue = 3;
+	floodFillImplementation(screenvalue, m, n, newCValue);
+
+	document.write("Updated screen after calling to foodfill");
+	for (var m = 0; m < X; m++) {
+		for (var n = 0; n < Y; n++) document.write(screenvalue[m][n] + " ");
+		document.write("<br>");
+	}
+	

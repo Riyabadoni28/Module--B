@@ -1,0 +1,55 @@
+// flood fill algorithm in C++
+#include<iostream>
+using namespace std;
+
+#define X 8
+#define Y 8
+
+void floodFillUtilImplementation(int screenvalue[][Y], int m, int n, int prevCValue, int newCValue)
+{
+	if (m < 0 || m >= X || n < 0 || n >= Y)
+		return;
+	if (screenvalue[m][n] != prevCValue)
+		return;
+	if (screenvalue[m][n] == newCValue)
+		return;
+
+	screenvalue[m][n] = newCValue;
+
+	floodFillUtilImplementation(screenvalue, m+1, n, prevCValue, newCValue);
+	floodFillUtilImplementation(screenvalue, m-1, n, prevCValue, newCValue);
+	floodFillUtilImplementation(screenvalue, m, n+1, prevCValue, newCValue);
+	floodFillUtilImplementation(screenvalue, m, n-1, prevCValue, newCValue);
+}
+
+
+void floodFillImplementation(int screenvalue[][Y], int m, int n, int newCValue)
+{
+	int prevCValue = screenvalue[m][n];
+	if(prevCValue==newCValue) return;
+	floodFillUtilImplementation(screenvalue, m, n, prevCValue, newCValue);
+}
+
+int main()
+{
+	int screenvalue[X][Y] = {{2, 2, 2, 2, 2, 2, 2, 2},
+					{2, 1, 1, 1, 1, 1, 0, 0},
+					{2, 0, 0, 1, 1, 0, 2, 2},
+					{2, 2, 2, 2, 2, 0, 2, 1},
+					{2, 1, 1, 2, 2, 0, 2, 1},
+					{2, 2, 2, 3, 3, 3, 3, 1},
+					{2, 2, 2, 2, 2, 3, 2, 2},
+					{2, 2, 2, 2, 2, 3, 3, 2},
+					};
+	int i = 4, j = 4, newCValue = 3;
+	floodFillImplementation(screenvalue, i, j, newCValue);
+
+	cout << "Updated screen after calling to floodFillImplementation: \n";
+	for (int m=0; m<X; m++)
+	{
+		for (int n=0; n<Y; n++)
+		cout << screenvalue[m][n] << " ";
+		cout << endl;
+	}
+}
+
