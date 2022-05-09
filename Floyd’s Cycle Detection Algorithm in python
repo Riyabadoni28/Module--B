@@ -1,0 +1,39 @@
+#Floyd’s Cycle Detection Algorithm in Python
+class NodeImplementation:
+	def __init__(self, data):
+		self.datavalue = data
+		self.nextvalue = None
+
+headnode = None
+
+def detectionOfLoop(headnode):
+	slowPointerValue = headnode
+	fastPointerValue = headnode
+
+	while (slowPointerValue != None
+		and fastPointerValue != None
+		and fastPointerValue.nextvalue != None):
+		slowPointerValue = slowPointerValue.nextvalue
+		fastPointerValue = fastPointerValue.nextvalue.nextvalue
+		if (slowPointerValue == fastPointerValue):
+			return 1
+
+	return 0
+
+headnode = NodeImplementation(76)
+headnode.nextvalue = NodeImplementation(24)
+headnode.nextvalue.nextvalue = NodeImplementation(89)
+headnode.nextvalue.nextvalue.nextvalue = NodeImplementation(50)
+headnode.nextvalue.nextvalue.nextvalue.nextvalue = NodeImplementation(80)
+
+tempvalue = headnode
+while (tempvalue.nextvalue != None):
+	tempvalue = tempvalue.nextvalue
+
+tempvalue.nextvalue = headnode
+
+if (detectionOfLoop(headnode)):
+	print("Here Loop are Exist in Listked List")
+else:
+	print("Here Loop are Not Exist in Listed List")
+

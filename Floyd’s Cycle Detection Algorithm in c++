@@ -1,0 +1,75 @@
+// Floyd’s Cycle Detection Algorithm in C++
+#include <bits/stdc++.h>
+using namespace std;
+
+class NodeImplementation {
+public:
+	int datavalue;
+	NodeImplementation* nextvalue;
+
+	NodeImplementation(int datavalue)
+	{
+		this->datavalue = datavalue;
+		nextvalue = NULL;
+	}
+};
+
+NodeImplementation* headnode = NULL;
+class LinkedlistImplementation {
+public:
+
+	void insertNewNode(int intvalue)
+	{
+		NodeImplementation* newNodeValue = new NodeImplementation(intvalue);
+		if (headnode == NULL)
+			headnode = newNodeValue;
+		else {
+			newNodeValue->nextvalue = headnode;
+			headnode = newNodeValue;
+		}
+	}
+
+	bool detectionOfLoop()
+	{
+		NodeImplementation *slowPointerValue = headnode,
+			*fastPointerValue = headnode;
+
+		while (slowPointerValue != NULL
+			&& fastPointerValue != NULL
+			&& fastPointerValue->nextvalue != NULL) {
+			slowPointerValue = slowPointerValue->nextvalue;
+			fastPointerValue = fastPointerValue->nextvalue->nextvalue;
+			if (slowPointerValue == fastPointerValue)
+				return 1;
+		}
+
+		return 0;
+	}
+};
+
+int main()
+{
+	LinkedlistImplementation linkList;
+	// inserting new values
+	linkList.insertNewNode(30);
+	linkList.insertNewNode(28);
+	linkList.insertNewNode(34);
+	linkList.insertNewNode(23);
+	linkList.insertNewNode(60);
+
+	NodeImplementation* tempvalue = headnode;
+	while (tempvalue->nextvalue != NULL)
+		tempvalue = tempvalue->nextvalue;
+
+	tempvalue->nextvalue = headnode;
+
+	if (linkList.detectionOfLoop())
+		cout << "Here Loop existing in"
+			<< " Linked List" << endl;
+	else
+		cout << "Here Loop does not existing in "
+			<< "in the Linked List" << endl;
+
+	return 0;
+}
+

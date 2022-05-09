@@ -1,0 +1,49 @@
+<script>
+		
+		// Floyd’s Cycle Detection Algorithm in JavaScript
+		class NodeImplementation
+		{
+			constructor(data)
+			{
+				this.data = data;
+				this.nextvalue = null;
+			}
+		}
+
+		let headnode = null;
+
+		function detectionOfLoop(headnode) {
+			let slowPointerValue = headnode;
+			let fastPointerValue = headnode;
+
+			while (slowPointerValue != null
+				&& fastPointerValue != null
+				&& fastPointerValue.nextvalue != null) {
+				slowPointerValue = slowPointerValue.nextvalue;
+				fastPointerValue = fastPointerValue.nextvalue.nextvalue;
+				if (slowPointerValue == fastPointerValue)
+					return 1;
+			}
+
+			return 0;
+		}
+
+		headnode = new NodeImplementation(79);
+		headnode.nextvalue = new NodeImplementation(14);
+		headnode.nextvalue.nextvalue = new NodeImplementation(70);
+		headnode.nextvalue.nextvalue.nextvalue = new NodeImplementation(20);
+		headnode.nextvalue.nextvalue.nextvalue.nextvalue = new NodeImplementation(11);
+
+		let tempvalue = headnode;
+		while (tempvalue.nextvalue != null)
+			tempvalue = tempvalue.nextvalue;
+
+		tempvalue.nextvalue = headnode;
+
+		if (detectionOfLoop(headnode))
+			document.write("Here Loop exist in Linked List");
+		else
+			document.write("Here Loop does not exist in Linked List");
+
+	</script>
+
