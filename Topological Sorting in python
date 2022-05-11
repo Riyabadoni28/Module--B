@@ -1,0 +1,46 @@
+# Topological Sorting in a DAG in Python
+from collections import defaultdict
+
+
+
+class GraphImplementation:
+	def __init__(self, no_of_vertices):
+		self.graphImplementation = defaultdict(list) 
+		self.No_Of_Vertices = no_of_vertices 
+
+	
+	def addEdgeNode(self, m, n):
+		self.graphImplementation[m].append(n)
+
+	def topologicalSortUtilImplementation(self, n, visitednodes, stack):
+
+		visitednodes[n] = True
+
+		for j in self.graphImplementation[n]:
+			if visitednodes[j] == False:
+				self.topologicalSortUtilImplementation(j, visitednodes, stack)
+
+		stack.append(n)
+
+	def topologicalSortImplementation(self):
+		visitednodes = [False]*self.No_Of_Vertices
+		stack = []
+
+		for j in range(self.No_Of_Vertices):
+			if visitednodes[j] == False:
+				self.topologicalSortUtilImplementation(j, visitednodes, stack)
+
+		print(stack[::-1])
+
+
+graph = GraphImplementation(6)
+graph.addEdgeNode(5, 3)
+graph.addEdgeNode(5, 1)
+graph.addEdgeNode(4, 1)
+graph.addEdgeNode(4, 2)
+graph.addEdgeNode(2, 4)
+graph.addEdgeNode(3, 2)
+
+print ("There are Topological Sort of the given graph")
+graph.topologicalSortImplementation()
+

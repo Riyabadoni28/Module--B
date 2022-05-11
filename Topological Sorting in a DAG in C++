@@ -1,0 +1,81 @@
+// Topological Sorting in a DAG in C++
+#include <iostream>
+#include <list>
+#include <stack>
+using namespace std;
+
+class GraphImplementation {
+	int number_of_vertex;
+	list<int>* adjacents;
+
+	void topologicalSortUtilImplementation(int vertex, bool visitednodes[],
+							stack<int>& StackValue);
+
+public:
+	GraphImplementation(int number_of_vertex);
+
+	void addEdgeNode(int vertex, int weight);
+
+	void topologicalSortImplementation();
+};
+
+GraphImplementation::GraphImplementation(int number_of_vertex)
+{
+	this->number_of_vertex = number_of_vertex;
+	adjacents = new list<int>[number_of_vertex];
+}
+
+void GraphImplementation::addEdgeNode(int vertex, int weight)
+{
+	adjacents[vertex].push_back(weight);
+}
+
+void GraphImplementation::topologicalSortUtilImplementation(int vertex, bool visitednodes[],
+								stack<int>& StackValue)
+{
+	visitednodes[vertex] = true;
+
+	list<int>::iterator m;
+	for (m = adjacents[vertex].begin(); m != adjacents[vertex].end(); ++m)
+		if (!visitednodes[*m])
+			topologicalSortUtilImplementation(*m, visitednodes, StackValue);
+
+	StackValue.push(vertex);
+}
+void GraphImplementation::topologicalSortImplementation()
+{
+	stack<int> StackValue;
+
+	bool* visitednodes = new bool[number_of_vertex];
+	for (int m = 0; m < number_of_vertex; m++)
+		visitednodes[m] = false;
+		
+	for (int m = 0; m < number_of_vertex; m++)
+		if (visitednodes[m] == false)
+			topologicalSortUtilImplementation(m, visitednodes, StackValue);
+
+	while (StackValue.empty() == false) {
+		cout << StackValue.top() << " ";
+		StackValue.pop();
+	}
+}
+
+int main()
+{
+	
+	GraphImplementation graph(6);
+	graph.addEdgeNode(5, 3);
+	graph.addEdgeNode(5, 1);
+	graph.addEdgeNode(4, 1);
+	graph.addEdgeNode(4, 2);
+	graph.addEdgeNode(2, 4);
+	graph.addEdgeNode(3, 2);
+
+	cout << "Here Topological Sort of the given Graph\n";
+
+	graph.topologicalSortImplementation();
+
+	return 0;
+}
+
+
