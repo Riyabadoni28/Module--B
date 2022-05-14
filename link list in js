@@ -1,0 +1,33 @@
+<script>
+
+// Link List Program in javaScript
+	var headnode; 
+	class NodeImplementation {
+		constructor(value) {
+			this.datavalue = value;
+			this.nextnode = null;
+		}
+	}
+
+	function printArrayList()
+	{
+		var node = headnode;
+		while (node != null) {
+			document.write(node.datavalue + " ");
+			node = node.nextnode;
+		}
+	}
+
+		
+
+	var headnode = new NodeImplementation(78);
+		var secondnode = new NodeImplementation(34);
+		var thirdnode = new NodeImplementation(90);
+
+		headnode.nextnode = secondnode; 
+		secondnode.nextnode = thirdnode; 
+		printArrayList();
+
+
+</script>
+

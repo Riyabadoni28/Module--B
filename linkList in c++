@@ -1,0 +1,45 @@
+
+// Link List Program in C++
+#include <bits/stdc++.h>
+using namespace std;
+
+class NodeImplementation {
+public:
+	int datavalue;
+	NodeImplementation* nextnode;
+};
+
+void printArrayList(NodeImplementation* node)
+{
+	while (node != NULL) {
+		cout << node->datavalue << " ";
+		node = node->nextnode;
+	}
+}
+
+int main()
+{
+	NodeImplementation* headnode = NULL;
+	NodeImplementation* secondnode = NULL;
+	NodeImplementation* thirdnode = NULL;
+
+	headnode = new NodeImplementation();
+	secondnode = new NodeImplementation();
+	thirdnode = new NodeImplementation();
+
+	headnode->datavalue = 67;
+	headnode->nextnode = secondnode;
+
+	secondnode->datavalue = 24;
+	secondnode->nextnode = thirdnode;
+
+	thirdnode->datavalue = 89; // 
+	thirdnode->nextnode = NULL;
+
+	printArrayList(headnode);
+
+	return 0;
+}
+
+
+
