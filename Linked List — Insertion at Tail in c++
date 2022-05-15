@@ -1,0 +1,68 @@
+// Linked List — Insertion at Tail Program in C++
+#include <bits/stdc++.h>
+using namespace std;
+
+class NodeImplementation
+{
+	public:
+	int datavalue;
+	NodeImplementation *nextnode;
+};
+
+void InsertionToEnd(NodeImplementation** headnode)
+{
+	int node;
+	cout << "Enter number which you want you insert into link list";
+	cin >> node;
+	NodeImplementation* new_node_data = new NodeImplementation();
+
+	NodeImplementation *lastnode = *headnode;
+
+	new_node_data->datavalue = node;
+
+	new_node_data->nextnode = NULL;
+
+	if (*headnode == NULL)
+	{
+		*headnode = new_node_data ;
+		return;
+	}
+
+	while (lastnode->nextnode != NULL)
+	{
+		lastnode = lastnode->nextnode;
+	}
+
+	lastnode->nextnode = new_node_data;
+	return;
+}
+
+
+
+void printArrayList(NodeImplementation *nodevalue)
+{
+	while (nodevalue != NULL)
+	{
+		cout<<" "<<nodevalue->datavalue;
+		nodevalue = nodevalue->nextnode;
+	}
+}
+
+int main()
+{
+	NodeImplementation* headnode = NULL;
+	
+	InsertionToEnd(&headnode);
+	InsertionToEnd(&headnode);
+	InsertionToEnd(&headnode);
+	InsertionToEnd(&headnode);
+	InsertionToEnd(&headnode);
+	
+	
+	cout<<"After Insertion Created Linked list is: ";
+	printArrayList(headnode);
+	
+	return 0;
+}
+
+

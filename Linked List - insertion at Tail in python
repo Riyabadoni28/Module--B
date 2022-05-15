@@ -1,0 +1,53 @@
+# Linked List — Insertion at Tail program in python
+
+class NodeImplementation:
+
+	def __init__(self, datavalue):
+		self.datavalue = datavalue 
+		self.nextnode = None 
+
+class LinkedListImplementation:
+
+	def __init__(self):
+		self.headnode = None
+
+	def InsertToEnd(self):
+		new_data_value = int(input("Enter number which you want you insert into link list"))
+
+		new_node_data = NodeImplementation(new_data_value)
+
+		if self.headnode is None:
+			self.headnode = new_node_data
+			return
+
+		lastnode = self.headnode
+		while (lastnode.nextnode):
+			lastnode = lastnode.nextnode
+
+		lastnode.nextnode = new_node_data
+
+
+
+	def printArrayList(self):
+		tempnode = self.headnode
+		while (tempnode):
+			print(tempnode.datavalue)
+			tempnode = tempnode.nextnode
+
+
+
+if __name__=='__main__':
+
+	linklist = LinkedListImplementation()
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	linklist.InsertToEnd();
+	print('After Insertion Created linked list is:')
+	linklist.printArrayList()
+
+
+

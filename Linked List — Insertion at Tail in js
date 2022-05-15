@@ -1,0 +1,54 @@
+<script>
+
+// Linked List — Insertion at Tail program in javaScript
+	var headnode; 
+
+	class NodeImplementation {
+			constructor(value) {
+				this.datavalue = value;
+				this.nextnode = null;
+			}
+		}
+
+
+	function InsertToEnd(new_data_value) {
+
+		var new_node_data = new NodeImplementation(new_data_value);
+
+		if (headnode == null) {
+			headnode = new NodeImplementation(new_data_value);
+			return;
+		}
+
+		new_node_data.nextnode = null;
+		
+		var lastnode = headnode;
+		while (lastnode.nextnode != null)
+			lastnode = lastnode.nextnode;
+
+		lastnode.nextnode = new_node_data;
+		return;
+	}
+
+	function printArrayList() {
+	var tempnode = headnode;
+		while (tempnode != null) {
+			document.write(tempnode.datavalue + " ");
+			tempnode = tempnode.nextnode;
+		}
+	}
+
+		InsertToEnd(78);
+		InsertToEnd(23);
+		InsertToEnd(67);
+		InsertToEnd(55);
+		InsertToEnd(90);
+		InsertToEnd(1555);
+		InsertToEnd(80);
+
+		document.write("\nCreated Linked list is: ");
+		printArrayList();
+
+
+</script>
+
