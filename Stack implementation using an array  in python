@@ -1,0 +1,34 @@
+# Stack implementation using an array program in python
+
+# Used to return -infinite when stack is empty
+from sys import maxsize
+
+def createStackImplementation():
+	stackarray = []
+	return stackarray
+
+def isEmptyStack(stackarray):
+	return len(stackarray) == 0
+
+def pushImplementation(stackarray, itemvalue):
+	stackarray.append(itemvalue)
+	print(itemvalue + " pushed to stack ")
+	
+
+def popImplementation(stackarray):
+    if (isEmptyStack(stackarray)):
+        return str(-maxsize -1) 
+     
+    return stackarray.popImplementation()
+
+def peekImplementation(stackarray):
+	if (isEmptyStack(stackarray)):
+		return str(-maxsize -1) 
+	return stackarray[len(stackarray) - 1]
+
+stackarray = createStackImplementation()
+pushImplementation(stackarray, str(45))
+pushImplementation(stackarray, str(80))
+pushImplementation(stackarray, str(59))
+print(popImplementation(stackarray) + " Number popped from stack")
+

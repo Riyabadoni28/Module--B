@@ -1,0 +1,62 @@
+<script>
+
+/* Stack implementation using an array in js */
+var top = -1;
+	var MAXVALUE = 1000;
+	var array = Array(MAXVALUE).fill(0); 
+
+	function isEmptyStack() {
+		return (top < 0);
+	}
+
+	function pushImplementation(number) {
+		if (top >= (MAXVALUE - 1)) {
+			document.write("Stack is Overflow");
+			return false;
+		} else {
+		top+=1;
+			array[top] = number;
+			
+			document.write(number + "number pushed into stack<br/>");
+			return true;
+		}
+	}
+
+	function popImplementation() {
+		if (top < 0) {
+			document.write("Stack is Underflow");
+			return 0;
+		} else {
+			var number = array[top];
+			top-=1;
+			return number;
+		}
+	}
+
+	function peekImplementation() {
+		if (top < 0) {
+			document.write("Stack is Underflow");
+			return 0;
+		} else {
+			var number = array[top];
+			return number;
+		}
+	}
+
+	function printArray() {
+		for (m = top; m > -1; m--) {
+			document.write(" " + array[m]);
+		}
+	}
+
+		pushImplementation(45);
+		pushImplementation(75);
+		pushImplementation(90);
+		document.write(popImplementation() + " Popped from stack");
+		document.write("<br/>Top element is :" + peekImplementation());
+		document.write("<br/>Elements present in stack : ");
+		printArray();
+
+
+</script>
+

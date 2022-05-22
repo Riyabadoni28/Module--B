@@ -1,0 +1,82 @@
+// Stack implementation using an array program in c++
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define MAXVALUE 1000
+
+class StackImplementation {
+	int topvalue;
+
+public:
+	int array[MAXVALUE];
+
+	StackImplementation() { topvalue = -1; }
+	bool pushImplementation();
+	int popImplementation();
+	int peekImplementation();
+	bool isEmptyStack();
+};
+
+bool StackImplementation::pushImplementation()
+{
+    int number;
+	if (topvalue >= (MAXVALUE - 1)) {
+		cout << "Stack is Overflow";
+		return false;
+	}
+	else {
+	    cout << "Enter number which you want to insert into stack";
+	    cin >> number;
+		array[++topvalue] = number;
+		cout <<number << " number pushed into stack\n";
+		return true;
+	}
+}
+
+int StackImplementation::popImplementation()
+{
+	if (topvalue < 0) {
+		cout << "Stack is Underflow";
+		return 0;
+	}
+	else {
+		int number = array[topvalue--];
+		return number;
+	}
+}
+int StackImplementation::peekImplementation()
+{
+	if (topvalue < 0) {
+		cout << "Stack is Empty";
+		return 0;
+	}
+	else {
+		int number = array[topvalue];
+		return number;
+	}
+}
+
+bool StackImplementation::isEmptyStack()
+{
+	return (topvalue < 0);
+}
+
+int main()
+{
+	class StackImplementation stack;
+	stack.pushImplementation();
+	stack.pushImplementation();
+	stack.pushImplementation();
+	cout << stack.popImplementation() << "Number Popped from stack\n";
+	cout<<"Elements present in stack : ";
+	while(!stack.isEmptyStack())
+	{
+		cout<<stack.peekImplementation()<<" ";
+		stack.popImplementation();
+	}
+
+	return 0;
+}
+
