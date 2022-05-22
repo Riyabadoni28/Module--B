@@ -1,0 +1,90 @@
+// Binary Search Tree (BST) in C++
+
+#include <iostream>
+using namespace std;
+
+struct nodeImplementation {
+  int keyvalue;
+  struct nodeImplementation *leftnode, *rightnode;
+};
+
+struct nodeImplementation *newNodeInsert(int itemvalue) {
+  struct nodeImplementation *tempnode = (struct nodeImplementation *)malloc(sizeof(struct nodeImplementation));
+  tempnode->keyvalue = itemvalue;
+  tempnode->leftnode = tempnode->rightnode = NULL;
+  return tempnode;
+}
+
+void inorderImplemenatation(struct nodeImplementation *rootnode) {
+  if (rootnode != NULL) {
+    inorderImplemenatation(rootnode->leftnode);
+    cout << rootnode->keyvalue << " -> ";
+    inorderImplemenatation(rootnode->rightnode);
+  }
+}
+
+struct nodeImplementation *insertNodeImplementation(struct nodeImplementation *nodeImplementation, int keyvalue) {
+  if (nodeImplementation == NULL) return newNodeInsert(keyvalue);
+
+  if (keyvalue < nodeImplementation->keyvalue)
+    nodeImplementation->leftnode = insertNodeImplementation(nodeImplementation->leftnode, keyvalue);
+  else
+    nodeImplementation->rightnode = insertNodeImplementation(nodeImplementation->rightnode, keyvalue);
+
+  return nodeImplementation;
+}
+
+struct nodeImplementation *minValueNodeImplementation(struct nodeImplementation *nodeImplementation) {
+  struct nodeImplementation *currentnode = nodeImplementation;
+
+  while (currentnode && currentnode->leftnode != NULL)
+    currentnode = currentnode->leftnode;
+
+  return currentnode;
+}
+
+struct nodeImplementation *deleteNodeImplementation(struct nodeImplementation *rootnode, int keyvalue) {
+  if (rootnode == NULL) return rootnode;
+
+  if (keyvalue < rootnode->keyvalue)
+    rootnode->leftnode = deleteNodeImplementation(rootnode->leftnode, keyvalue);
+  else if (keyvalue > rootnode->keyvalue)
+    rootnode->rightnode = deleteNodeImplementation(rootnode->rightnode, keyvalue);
+  else {
+    if (rootnode->leftnode == NULL) {
+      struct nodeImplementation *tempvalue = rootnode->rightnode;
+      free(rootnode);
+      return tempvalue;
+    } else if (rootnode->rightnode == NULL) {
+      struct nodeImplementation *tempvalue = rootnode->leftnode;
+      free(rootnode);
+      return tempvalue;
+    }
+
+    struct nodeImplementation *tempvalue = minValueNodeImplementation(rootnode->rightnode);
+    rootnode->keyvalue = tempvalue->keyvalue;
+
+    rootnode->rightnode = deleteNodeImplementation(rootnode->rightnode, tempvalue->keyvalue);
+  }
+  return rootnode;
+}
+
+int main() {
+  struct nodeImplementation *rootnode = NULL;
+  rootnode = insertNodeImplementation(rootnode, 45);
+  rootnode = insertNodeImplementation(rootnode, 24);
+  rootnode = insertNodeImplementation(rootnode, 90);
+  rootnode = insertNodeImplementation(rootnode, 33);
+  rootnode = insertNodeImplementation(rootnode, 57);
+  rootnode = insertNodeImplementation(rootnode, 39);
+  rootnode = insertNodeImplementation(rootnode, 68);
+  rootnode = insertNodeImplementation(rootnode, 40);
+
+  cout << "Inorder traversal of tree are: ";
+  inorderImplemenatation(rootnode);
+
+  cout << "\nAfter deleting node tree are:\n";
+  rootnode = deleteNodeImplementation(rootnode, 57);
+  cout << "Inorder traversal: ";
+  inorderImplemenatation(rootnode);
+}

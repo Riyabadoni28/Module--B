@@ -1,0 +1,81 @@
+# Binary Search Tree (BST) implemenatation in Python
+
+class NodeImplementation:
+    def __init__(self, keyvalue):
+        self.keyvalue = keyvalue
+        self.leftnode = None
+        self.rightnode= None
+
+def inorderImplementation(rootnode):
+    if rootnode is not None:
+        inorderImplementation(rootnode.leftnode)
+        print(str(rootnode.keyvalue) + "->", end=' ')
+        inorderImplementation(rootnode.rightnode)
+
+def insertImplementation(nodevalue, keyvalue):
+
+    if nodevalue is None:
+        return NodeImplementation(keyvalue)
+
+    if keyvalue < nodevalue.keyvalue:
+        nodevalue.leftnode = insertImplementation(nodevalue.leftnode, keyvalue)
+    else:
+        nodevalue.rightnode = insertImplementation(nodevalue.rightnode, keyvalue)
+
+    return nodevalue
+
+def minValueNodeImplementation(nodevalue):
+    currentnode = nodevalue
+
+    while(currentnode.leftnode is not None):
+        currentnode = currentnode.leftnode
+
+    return currentnode
+
+
+def deleteNodeImplementation(rootnode, keyvalue):
+
+    if rootnode is None:
+        return rootnode
+
+    if keyvalue < rootnode.keyvalue:
+        rootnode.leftnode = deleteNodeImplementation(rootnode.leftnode, keyvalue)
+    elif(keyvalue > rootnode.keyvalue):
+        rootnode.rightnode = deleteNodeImplementation(rootnode.rightnode, keyvalue)
+    else:
+        if rootnode.leftnode is None:
+            tempnode = rootnode.rightnode
+            rootnode = None
+            return tempnode
+
+        elif rootnode.rightnode is None:
+            tempnode = rootnode.leftnode
+            rootnode = None
+            return tempnode
+
+        tempnode = minValueNodeImplementation(rootnode.rightnode)
+
+        rootnode.keyvalue = tempnode.keyvalue
+        
+        rootnode.rightnode = deleteNodeImplementation(rootnode.rightnode, tempnode.keyvalue)
+
+    return rootnode
+
+
+rootnode = None
+rootnode = insertImplementation(rootnode, 45)
+rootnode = insertImplementation(rootnode, 23)
+rootnode = insertImplementation(rootnode, 90)
+rootnode = insertImplementation(rootnode, 78)
+rootnode = insertImplementation(rootnode, 18)
+rootnode = insertImplementation(rootnode, 44)
+rootnode = insertImplementation(rootnode, 39)
+rootnode = insertImplementation(rootnode, 20)
+
+print("Here you seen Inorder traversal of tree: ", end=' ')
+inorderImplementation(rootnode)
+
+print("\ndelete a node from tree")
+rootnode = deleteNodeImplementation(rootnode, 44)
+print("After delete node from a tree Inorder traversal are: ", end=' ')
+inorderImplementation(rootnode)
