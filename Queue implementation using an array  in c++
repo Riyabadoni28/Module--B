@@ -1,0 +1,100 @@
+// Queue implementation using an array in C++
+#include <bits/stdc++.h>
+using namespace std;
+
+struct QueueImplementation {
+	int frontnode, rearnode, capacitylist;
+	int* queuenode;
+	QueueImplementation(int cap)
+	{
+		frontnode = rearnode = 0;
+		capacitylist = cap;
+		queuenode = new int;
+	}
+
+	~QueueImplementation() { delete[] queuenode; }
+
+	void queueInsert(int datavalue)
+	{
+		if (capacitylist == rearnode) {
+			printf("\nQueue is overflow\n");
+			return;
+		}
+
+		else {
+			queuenode[rearnode] = datavalue;
+			rearnode++;
+		}
+		return;
+	}
+
+	void queueDelete()
+	{
+		if (frontnode == rearnode) {
+			printf("\nQueue is underflow\n");
+			return;
+		}
+
+		else {
+			for (int x = 0; x < rearnode - 1; x++) {
+				queuenode[x] = queuenode[x + 1];
+			}
+
+			rearnode--;
+		}
+		return;
+	}
+
+	void queueDisplayImplementation()
+	{
+		int i;
+		if (frontnode == rearnode) {
+			printf("\nQueue is Underflow\n");
+			return;
+		}
+
+		for (i = frontnode; i < rearnode; i++) {
+			printf(" %d <-- ", queuenode[i]);
+		}
+		return;
+	}
+
+};
+
+int main(void)
+{
+
+	QueueImplementation queue(20);
+
+	queue.queueDisplayImplementation();
+
+	queue.queueInsert(45);
+	queue.queueInsert(22);
+	queue.queueInsert(23);
+	queue.queueInsert(90);
+	queue.queueInsert(64);
+	queue.queueInsert(11);
+	queue.queueInsert(70);
+	queue.queueInsert(222);
+
+	queue.queueDisplayImplementation();
+
+	queue.queueInsert(34);
+	queue.queueInsert(110);
+	queue.queueInsert(30);
+	queue.queueInsert(59);
+	queue.queueInsert(900);
+
+	queue.queueDisplayImplementation();
+
+	queue.queueDelete();
+	queue.queueDelete();
+
+	printf("\n\nafter two node deletion from queue\n\n");
+
+	queue.queueDisplayImplementation();
+
+
+	return 0;
+}
+

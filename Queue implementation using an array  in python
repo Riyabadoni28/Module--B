@@ -1,0 +1,65 @@
+# Queue implementation using an array in python
+class QueueImplementation:
+
+	def __init__(self, cap):
+		
+		self.queuenode = []
+		self.frontnode = self.rearnode = 0
+		self.capacitylist = cap
+
+	def queueInsert(self, datavalue):
+
+		if(self.capacitylist == self.rearnode):
+			print("\nQueue is overflow")
+
+		else:
+			self.queuenode.append(datavalue)
+			self.rearnode += 1
+
+	def queueDelete(self):
+
+		if(self.frontnode == self.rearnode):
+			print("Queue is underflow")
+
+		else:
+			node = self.queuenode.pop(0)
+			self.rearnode -= 1
+
+	def queueDisplayImplementation(self):
+		
+		if(self.frontnode == self.rearnode):
+			print("\nQueue is Empty")
+
+
+		for m in self.queuenode:
+			print(m, "<--", end = '')
+	
+
+if __name__=='__main__':
+
+
+	queue = QueueImplementation(20)
+
+	queue.queueDisplayImplementation()
+
+	queue.queueInsert(34)
+	queue.queueInsert(22)
+	queue.queueInsert(90)
+	queue.queueInsert(12)
+	queue.queueInsert(23)
+	queue.queueInsert(50)
+	queue.queueInsert(222)
+	queue.queueInsert(35)
+	queue.queueInsert(80)
+	
+	queue.queueDisplayImplementation()
+
+	queue.queueInsert(60)
+
+	queue.queueDisplayImplementation()
+
+	queue.queueDelete()
+	queue.queueDelete()
+	print("\n\nafter two node deletion List are:")
+	queue.queueDisplayImplementation()
+

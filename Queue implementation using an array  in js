@@ -1,0 +1,99 @@
+//Queue implementation using an array in Javascript
+class QueueImplementation{
+	
+constructor(cap)
+{
+	this.frontnode = this.rearnode = 0;
+	this.capacity = cap;
+	this.queuenode = new Array(this.capacity);
+}
+
+queueInsert(datavalue)
+{
+	
+	if (this.capacity == this.rearnode)
+	{
+		document.write("<br>Queue is overflow<br>");
+		return;
+	}
+
+	else
+	{
+		this.queuenode[this.rearnode] = datavalue;
+		this.rearnode++;
+	}
+	return;
+}
+
+queueDelete()
+{
+	
+	if (this.frontnode == this.rearnode)
+	{
+		document.write("<br>Queue is overflow<br>");
+		return;
+	}
+	else
+	{
+		for(let m = 0; m < this.rearnode - 1; m++)
+		{
+			this.queuenode[m] = this.queuenode[m + 1];
+		}
+
+		if (this.rearnode < this.capacity)
+			this.queuenode[this.rearnode] = 0;
+
+		this.rearnode--;
+	}
+	return;
+}
+
+queueDisplayImplementation()
+{
+	let i;
+	if (this.frontnode == this.rearnode)
+	{
+		document.write("<br>Queue is Empty<br>");
+		return;
+	}
+
+	// Traverse front to rear and print elements
+	for(i = this.frontnode; i < this.rearnode; i++)
+	{
+		document.write(this.queuenode[i] + " <-- ");
+	}
+	return;
+}
+
+}
+
+let queue = new QueueImplementation(20);
+
+queue.queueDisplayImplementation();
+
+queue.queueInsert(45);
+	queue.queueInsert(22);
+	queue.queueInsert(23);
+	queue.queueInsert(90);
+	queue.queueInsert(64);
+	queue.queueInsert(11);
+	queue.queueInsert(70);
+	queue.queueInsert(222);
+
+queue.queueDisplayImplementation();
+
+	queue.queueInsert(34);
+	queue.queueInsert(110);
+	queue.queueInsert(30);
+	queue.queueInsert(59);
+	queue.queueInsert(900);
+queue.queueDisplayImplementation();
+
+queue.queueDelete();
+queue.queueDelete();
+document.write("<br><br> after two node deletion List are :<br><br>");
+
+queue.queueDisplayImplementation();
+
+
+
