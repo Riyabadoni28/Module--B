@@ -1,0 +1,86 @@
+# Stack implementation using linked list in python
+
+class NodeImplementation:
+	
+	def __init__(self,datavalue):
+		self.datavalue = datavalue
+		self.nextnode = None
+	
+class StackImplementation:
+	
+	def __init__(self):
+		self.headnode = None
+	
+	def isemptyStack(self):
+		if self.headnode == None:
+			return True
+		else:
+			return False
+	
+	def PushIntoStack(self,datavalue):
+		
+		if self.headnode == None:
+			self.headnode=NodeImplementation(datavalue)
+			
+		else:
+			newnode = NodeImplementation(datavalue)
+			newnode.nextnode = self.headnode
+			self.headnode = newnode
+	
+	def PopFromStack(self):
+		
+		if self.isemptyStack():
+			return None
+			
+		else:
+			poppednode = self.headnode
+			self.headnode = self.headnode.nextnode
+			poppednode.nextnode = None
+			return poppednode.datavalue
+	
+	def PeekStack(self):
+		
+		if self.isemptyStack():
+			return None
+			
+		else:
+			return self.headnode.datavalue
+	
+	def displayStack(self):
+		
+		iternodevalue = self.headnode
+		if self.isemptyStack():
+			print("Stack is Underflow")
+		
+		else:
+			
+			while(iternodevalue != None):
+				
+				print(iternodevalue.datavalue,"->",end = " ")
+				iternodevalue = iternodevalue.nextnode
+			return
+		
+MyStackValues = StackImplementation()
+
+MyStackValues.PushIntoStack(43)
+MyStackValues.PushIntoStack(79)
+MyStackValues.PushIntoStack(29)
+MyStackValues.PushIntoStack(60)
+MyStackValues.PushIntoStack(23)
+MyStackValues.PushIntoStack(64)
+MyStackValues.PushIntoStack(90)
+MyStackValues.PushIntoStack(50)
+
+
+MyStackValues.displayStack()
+
+print("\nTop element in Stack List is ",MyStackValues.PeekStack())
+
+MyStackValues.PopFromStack()
+MyStackValues.PopFromStack()
+
+MyStackValues.displayStack()
+
+print("\nTop element in Stack List is ", MyStackValues.PeekStack())
+
+

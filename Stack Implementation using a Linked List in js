@@ -1,0 +1,105 @@
+<script>
+
+// Stack implementation using linked list in JS
+class NodeImplementation
+{
+	constructor()
+	{
+		this.datavalue=0;
+		this.linknode=null;
+	}
+}
+
+class StackUsingLinkedlistImplementation
+{
+	constructor()
+	{
+		this.topnode=null;
+	}
+	
+	pushintostack(node)
+	{
+		let tempnode = new NodeImplementation();
+
+		if (tempnode == null) {
+			document.write("<br>Heap is Overflow");
+			return;
+		}
+
+		tempnode.datavalue = node;
+
+		tempnode.linknode = this.topnode;
+
+		this.topnode = tempnode;
+	}
+	
+	isEmptyStack()
+	{
+		return this.topnode == null;
+	}
+	
+	peekstack()
+	{
+		if (!this.isEmptyStack()) {
+			return this.topnode.datavalue;
+		}
+		else {
+			document.write("Stack is empty<br>");
+			return -1;
+		}
+	}
+	
+	popfromstack() 
+	{
+		if (this.topnode == null) {
+			document.write("<br>Stack is Underflow");
+			return;
+		}
+
+		this.topnode = this.topnode.linknode;
+	}
+	
+	displaystack()
+	{
+		if (this.topnode == null) {
+			document.write("<br>Stack is Underflow");
+			
+		}
+		else {
+			let tempnode = this.topnode;
+			while (tempnode != null) {
+
+				document.write(tempnode.datavalue+"->");
+
+				tempnode = tempnode.linknode;
+			}
+		}
+	}
+}
+
+
+let stack = new StackUsingLinkedlistImplementation();
+stack.pushintostack(45);
+stack.pushintostack(23);
+stack.pushintostack(89);
+stack.pushintostack(41);
+stack.pushintostack(34);
+stack.pushintostack(22);
+stack.pushintostack(64);
+stack.pushintostack(12);
+
+stack.displaystack();
+
+document.write("<br>Top element in stack is ", stack.peekstack()+"<br>");
+
+stack.popfromstack();
+stack.popfromstack();
+
+stack.displaystack();
+
+document.write("<br>Top element in stack is ", stack.peekstack()+"<br>");
+
+
+
+</script>
+
