@@ -1,0 +1,57 @@
+<script>
+
+// Queue Implementation using a Linked List in js
+class QueueNodeImplementation
+{
+	constructor(keyvalue)
+	{
+		this.keyvalue = keyvalue;
+		this.nextnode = null;
+	}
+}
+
+let frontnode = null, rearnode = null;
+
+function insertqueue(keyvalue)
+{
+		let tempnode = new QueueNodeImplementation(keyvalue);
+
+		if (rearnode == null) {
+			frontnode = rearnode = tempnode;
+			return;
+		}
+
+		rearnode.nextnode = tempnode;
+		rearnode = tempnode;
+}
+
+
+function deletequeue()
+{
+		if (frontnode == null)
+			return;
+
+		let tempnode = frontnode;
+		frontnode = frontnode.nextnode;
+
+		if (frontnode == null)
+			rearnode = null;
+}
+
+
+insertqueue(34);
+insertqueue(78);
+insertqueue(344);
+insertqueue(10);
+deletequeue();
+deletequeue();
+insertqueue(33);
+insertqueue(44);
+insertqueue(55);
+deletequeue();
+document.write("Queue Front is: " + frontnode.keyvalue+"<br>");
+document.write("Queue Rear is: " + rearnode.keyvalue+"<br>");
+
+
+</script>
+

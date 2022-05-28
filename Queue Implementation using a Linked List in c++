@@ -1,0 +1,72 @@
+//Queue Implementation using a Linked List in c++
+#include <bits/stdc++.h>
+using namespace std;
+
+struct QueueNodeImplementation {
+	int datavalue;
+	QueueNodeImplementation* nextnode;
+	QueueNodeImplementation(int data)
+	{
+		datavalue = data;
+		nextnode = NULL;
+	}
+};
+
+struct QueueImplementation {
+	QueueNodeImplementation *frontnode, *rearnode;
+	QueueImplementation()
+	{
+		frontnode = rearnode = NULL;
+	}
+
+	void insertQueue(int node)
+	{
+
+		QueueNodeImplementation* tempnode = new QueueNodeImplementation(node);
+
+		if (rearnode == NULL) {
+			frontnode = rearnode = tempnode;
+			return;
+		}
+
+		rearnode->nextnode = tempnode;
+		rearnode = tempnode;
+	}
+
+	void deleteQueue()
+	{
+		if (frontnode == NULL)
+			return;
+
+
+		QueueNodeImplementation* tempnode = frontnode;
+		frontnode = frontnode->nextnode;
+
+		if (frontnode == NULL)
+			rearnode = NULL;
+
+		delete (tempnode);
+	}
+};
+
+// Driven Program
+int main()
+{
+
+	QueueImplementation queue;
+	queue.insertQueue(34);
+	queue.insertQueue(89);
+	queue.insertQueue(3);
+	queue.insertQueue(37);
+	queue.insertQueue(50);
+	queue.deleteQueue();
+	queue.deleteQueue();
+	queue.insertQueue(33);
+	queue.insertQueue(44);
+	queue.insertQueue(55);
+	queue.deleteQueue();
+	cout << "Queue Front node is : " << (queue.frontnode)->datavalue << endl;
+	cout << "Queue Rear node is: " << (queue.rearnode)->datavalue;
+}
+
+

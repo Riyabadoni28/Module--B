@@ -1,0 +1,52 @@
+# Queue Implementation using a Linked List in python
+
+class QueueNodeImplementation:
+	
+	def __init__(self, datavalue):
+		self.datavalue = datavalue
+		self.nextnode = None
+
+
+class QueueImplementation:
+	
+	def __init__(self):
+		self.frontnode = self.rearnode = None
+
+	def isEmpty(self):
+		return self.frontnode == None
+	
+	def InsertQueue(self, node):
+		tempnode = QueueNodeImplementation(node)
+		
+		if self.rearnode == None:
+			self.frontnode = self.rearnode = tempnode
+			return
+		self.rearnode.nextnode = tempnode
+		self.rearnode = tempnode
+
+	def DeleteQueue(self):
+		
+		if self.isEmpty():
+			return
+		tempnode = self.frontnode
+		self.frontnode = tempnode.nextnode
+
+		if(self.frontnode == None):
+			self.rearnode = None
+
+if __name__== '__main__':
+	queue = QueueImplementation()
+	queue.InsertQueue(14)
+	queue.InsertQueue(90)
+	queue.InsertQueue(33)
+	queue.InsertQueue(78)
+	queue.DeleteQueue()
+	queue.DeleteQueue()
+	queue.InsertQueue(33)
+	queue.InsertQueue(44)
+	queue.InsertQueue(55)
+	queue.DeleteQueue()
+	print("Queue frontnode is " + str(queue.frontnode.datavalue))
+	print("Queue Rear is " + str(queue.rearnode.datavalue))
+	
+
