@@ -1,0 +1,46 @@
+#Graph Implementation in python
+class AdjcentNode:
+	def __init__(self, datavalue):
+		self.vertex = datavalue
+		self.nextnode = None
+
+
+class GraphImplementation:
+	def __init__(self, vertices):
+		self.Vertex = vertices
+		self.graphnode = [None] * self.Vertex
+
+	def add_edge_implementation(self, source, destination):
+		node = AdjcentNode(destination)
+		node.nextnode = self.graphnode[source]
+		self.graphnode[source] = node
+
+		node = AdjcentNode(source)
+		node.nextnode = self.graphnode[destination]
+		self.graphnode[destination] = node
+
+	def print_graph_nodes(self):
+		for i in range(self.Vertex):
+			print("Adjacency list of vertex {}\n head".format(i), end="")
+			tempnode = self.graphnode[i]
+			while tempnode:
+				print(" -> {}".format(tempnode.vertex), end="")
+				tempnode = tempnode.nextnode
+			print(" \n")
+
+
+if __name__ == "__main__":
+	Vertex = 5
+	graphnode = GraphImplementation(Vertex)
+	graphnode.add_edge_implementation(0, 2)
+	graphnode.add_edge_implementation(0, 3)
+	graphnode.add_edge_implementation(1, 3)
+	graphnode.add_edge_implementation(1, 4)
+	graphnode.add_edge_implementation(1, 2)
+	graphnode.add_edge_implementation(2, 1)
+	graphnode.add_edge_implementation(3, 3)
+
+	graphnode.print_graph_nodes()
+
+# This code is contributed by Kanav Malhotra
+

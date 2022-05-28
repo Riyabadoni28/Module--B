@@ -1,0 +1,40 @@
+<script>
+
+// Graph Implementation is js
+function addEdgeImplementation(adjcent,x,y)
+{
+	adjcent[x].push(y);
+        adjcent[y].push(x);
+}
+
+function printGraphImplementation(adjcent)
+{
+	for (let x = 0; x < adjcent.length; x++) {
+			document.write("<br>Adjacency list of vertex are" + x+"<br>");
+			document.write("head node");
+			for (let y = 0; y < adjcent[y].length; y++) {
+				document.write(" -> "+adjcent[x][y]);
+			}
+			document.write("<br>");
+		}
+}
+
+
+		let Vertex = 5;
+		let adjcent= [];
+		
+		for (let i = 0; i < Vertex; i++)
+			adjcent.push([]);
+
+		addEdgeImplementation(adjcent, 0, 1);
+		addEdgeImplementation(adjcent, 0, 4);
+		addEdgeImplementation(adjcent, 1, 2);
+		addEdgeImplementation(adjcent, 1, 3);
+		addEdgeImplementation(adjcent, 1, 4);
+		addEdgeImplementation(adjcent, 2, 3);
+		addEdgeImplementation(adjcent, 3, 4);
+		
+		printGraphImplementation(adjcent);
+
+</script>
+

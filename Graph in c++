@@ -1,0 +1,38 @@
+// Graph Implementation in c++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void addEdgeIntoGraph(vector<int> adjcent[], int x, int y)
+{
+	adjcent[x].push_back(y);
+	adjcent[y].push_back(x);
+}
+
+
+void printGraphImplementation(vector<int> adjcent[], int Vertex)
+{
+	for (int vertex = 0; vertex < Vertex; ++vertex) {
+		cout << "\n Adjacency list of vertex are" << vertex
+			<< "\n head node";
+		for (auto x : adjcent[vertex])
+			cout << "-> " << x;
+		printf("\n");
+	}
+}
+
+int main()
+{
+	int Vertex = 5;
+	vector<int> adjcent[Vertex];
+	addEdgeIntoGraph(adjcent, 0, 2);
+	addEdgeIntoGraph(adjcent, 0, 3);
+	addEdgeIntoGraph(adjcent, 1, 3);
+	addEdgeIntoGraph(adjcent, 1, 4);
+	addEdgeIntoGraph(adjcent, 1, 0);
+	addEdgeIntoGraph(adjcent, 2, 4);
+	addEdgeIntoGraph(adjcent, 3, 4);
+	printGraphImplementation(adjcent, Vertex);
+	return 0;
+}
+
