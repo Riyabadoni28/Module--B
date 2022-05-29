@@ -1,0 +1,99 @@
+
+// A union-find algorithm to detect cycle in a graph Program in JS
+
+let Vertex, Edges;
+let edge;
+
+function GraphImplementation(num_of_Vertex,num_of_Edge)
+{
+	Vertex = num_of_Vertex;
+		Edges = num_of_Edge;
+		edge = new Array(Edges);
+		for (let m = 0; m < Edges; m++)
+		{
+			edge[m] = new EdgeImplementation();
+		}
+}
+
+class EdgeImplementation
+{
+	constructor()
+	{
+		this.source=0;
+		this.destination=0;
+	}
+}
+
+class subsetimplementation
+{
+	constructor()
+	{
+		this.parentnode=0;
+		this.ranknode=0;
+	}
+}
+
+function findimplementation(subsetsvalue,m)
+{
+	if (subsetsvalue[m].parentnode != m)
+			subsetsvalue[m].parentnode
+				= findimplementation(subsetsvalue, subsetsvalue[m].parentnode);
+		return subsetsvalue[m].parentnode;
+}
+
+function UnionImplementation(subsetsvalue,x,y)
+{
+	let xrootnode = findimplementation(subsetsvalue, x);
+		let yrootnode = findimplementation(subsetsvalue, y);
+
+		if (subsetsvalue[xrootnode].ranknode < subsetsvalue[yrootnode].ranknode)
+			subsetsvalue[xrootnode].parentnode = yrootnode;
+		else if (subsetsvalue[yrootnode].ranknode < subsetsvalue[xrootnode].ranknode)
+			subsetsvalue[yrootnode].parentnode = xrootnode;
+		else {
+			subsetsvalue[xrootnode].parentnode = yrootnode;
+			subsetsvalue[yrootnode].ranknode++;
+		}
+}
+
+function isCycleImplementation()
+{
+	
+
+		let subsetsvalue = new Array(Vertex);
+		for (let vertex = 0; vertex < Vertex; vertex++) {
+
+			subsetsvalue[vertex] = new subsetimplementation();
+			subsetsvalue[vertex].parentnode = vertex;
+			subsetsvalue[vertex].ranknode = 0;
+		}
+
+		for (let edges = 0; edges < Edges; edges++) {
+			let x = findimplementation(subsetsvalue, edge[edges].source);
+			let y = findimplementation(subsetsvalue, edge[edges].destination);
+			if (x == y)
+				return 1;
+			UnionImplementation(subsetsvalue, x, y);
+		}
+		return 0;
+}
+
+
+		Vertex = 3, Edges = 3;
+		GraphImplementation(Vertex, Edges);
+
+		edge[0].source = 0;
+		edge[0].destination = 1;
+
+		edge[1].source = 1;
+		edge[1].destination = 2;
+
+		edge[2].source = 0;
+		edge[2].destination = 2;
+
+		if (isCycleImplementation() == 1)
+			document.write("Here Graph contains in cycle");
+		else
+			document.write(
+				"Here Graph doesn't contain in cycle");
+

@@ -1,0 +1,70 @@
+# A union-find algorithm to detect cycle in a graph Program in python
+
+from collections import defaultdict
+
+class GraphImplementation:
+
+	def __init__(self, num_of_vertex):
+		self.num_of_vertex = num_of_vertex
+		self.num_of_edges = defaultdict(list)
+
+	def add_edge_implementation(self, x, y):
+		self.num_of_edges[x].append(y)
+
+
+class SubsetImplementation:
+	def __init__(self, parentnode, ranknode):
+		self.parentnode = parentnode
+		self.ranknode = ranknode
+
+
+def findimplementation(subsetsvalue, nodevalue):
+	if subsetsvalue[nodevalue].parentnode != nodevalue:
+		subsetsvalue[nodevalue].parentnode = findimplementation(subsetsvalue, subsetsvalue[nodevalue].parentnode)
+	return subsetsvalue[nodevalue].parentnode
+
+def unionimplementation(subsetsvalue, x, y):
+
+	if subsetsvalue[x].ranknode > subsetsvalue[y].ranknode:
+		subsetsvalue[y].parentnode = x
+	elif subsetsvalue[y].ranknode > subsetsvalue[x].ranknode:
+		subsetsvalue[x].parentnode = y
+
+	else:
+		subsetsvalue[y].parentnode = x
+		subsetsvalue[x].ranknode += 1
+
+
+def isCycleImplementation(graph):
+
+	subsetsvalue = []
+
+	for x in range(graph.num_of_vertex):
+		subsetsvalue.append(SubsetImplementation(x, 0))
+
+	for x in graph.num_of_edges:
+		x_rep = findimplementation(subsetsvalue, x)
+
+		for y in graph.num_of_edges[x]:
+			y_rep = findimplementation(subsetsvalue, y)
+
+			if x_rep == y_rep:
+				return True
+			else:
+				unionimplementation(subsetsvalue, x_rep, y_rep)
+
+
+graph = GraphImplementation(3)
+
+graph.add_edge_implementation(0, 1)
+
+graph.add_edge_implementation(1, 2)
+
+graph.add_edge_implementation(0, 2)
+
+if isCycleImplementation(graph):
+	print('Here Graph contains in cycle')
+else:
+	print('Here Graph does not contain in cycle')
+
+
