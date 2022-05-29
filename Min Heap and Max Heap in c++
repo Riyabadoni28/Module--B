@@ -1,0 +1,137 @@
+// Min Heap and Max Heap in c++
+#include<iostream>
+#include<climits>
+using namespace std;
+
+void swapValues(int *a, int *b);
+
+class MinHeapImplementation
+{
+	int *heaparrpointer; 
+	int capacityofheap; 
+	int heap_of_size;
+public:
+
+	MinHeapImplementation(int capacityofheap);
+
+	void MinHeapifyImplementation(int );
+
+	int parentnode(int m) { return (m-1)/2; }
+
+	int leftnode(int m) { return (2*m + 1); }
+
+	int rightnode(int m) { return (2*m + 2); }
+
+	int extractMinImplementation();
+
+	void decreaseKeyvalues(int m, int new_val);
+
+	int getMinValue() { return heaparrpointer[0]; }
+
+	void deleteKeyValue(int m);
+
+	void insertKeyValue(int k);
+};
+
+MinHeapImplementation::MinHeapImplementation(int capacity)
+{
+	heap_of_size = 0;
+	capacityofheap = capacity;
+	heaparrpointer = new int[capacity];
+}
+
+void MinHeapImplementation::insertKeyValue(int key)
+{
+	if (heap_of_size == capacityofheap)
+	{
+		cout << "\nOverflow: Could not insertKeyValue here\n";
+		return;
+	}
+
+	heap_of_size++;
+	int m = heap_of_size - 1;
+	heaparrpointer[m] = key;
+
+	while (m != 0 && heaparrpointer[parentnode(m)] > heaparrpointer[m])
+	{
+	swapValues(&heaparrpointer[m], &heaparrpointer[parentnode(m)]);
+	m = parentnode(m);
+	}
+}
+
+
+void MinHeapImplementation::decreaseKeyvalues(int m, int new_node_val)
+{
+	heaparrpointer[m] = new_node_val;
+	while (m != 0 && heaparrpointer[parentnode(m)] > heaparrpointer[m])
+	{
+	swapValues(&heaparrpointer[m], &heaparrpointer[parentnode(m)]);
+	m = parentnode(m);
+	}
+}
+
+int MinHeapImplementation::extractMinImplementation()
+{
+	if (heap_of_size <= 0)
+		return INT_MAX;
+	if (heap_of_size == 1)
+	{
+		heap_of_size--;
+		return heaparrpointer[0];
+	}
+
+	int rootnode = heaparrpointer[0];
+	heaparrpointer[0] = heaparrpointer[heap_of_size-1];
+	heap_of_size--;
+	MinHeapifyImplementation(0);
+
+	return rootnode;
+}
+
+void MinHeapImplementation::deleteKeyValue(int m)
+{
+	decreaseKeyvalues(m, INT_MIN);
+	extractMinImplementation();
+}
+
+void MinHeapImplementation::MinHeapifyImplementation(int m)
+{
+	int left = leftnode(m);
+	int right = rightnode(m);
+	int smallest = m;
+	if (left < heap_of_size && heaparrpointer[left] < heaparrpointer[m])
+		smallest = left;
+	if (right < heap_of_size && heaparrpointer[right] < heaparrpointer[smallest])
+		smallest = right;
+	if (smallest != m)
+	{
+		swapValues(&heaparrpointer[m], &heaparrpointer[smallest]);
+		MinHeapifyImplementation(smallest);
+	}
+}
+
+void swapValues(int *a, int *b)
+{
+	int tempvalue = *a;
+	*a = *b;
+	*b = tempvalue;
+}
+
+
+int main()
+{
+	MinHeapImplementation heap(15);
+	heap.insertKeyValue(2);
+	heap.insertKeyValue(9);
+	heap.deleteKeyValue(11);
+	heap.insertKeyValue(34);
+	heap.insertKeyValue(55);
+	heap.insertKeyValue(90);
+	heap.insertKeyValue(23);
+	cout << heap.extractMinImplementation() << " ";
+	cout << heap.getMinValue() << " ";
+	heap.decreaseKeyvalues(2, 1);
+	cout << heap.getMinValue();
+	return 0;
+}
+

@@ -1,0 +1,48 @@
+# Min Heap and Max Heap in python
+
+from heapq import heappush, heappop, heapify
+
+class MinHeapImplementation:
+	
+	def __init__(self):
+		self.heapvalue = []
+
+	def parentnode(self, m):
+		return (m-1)/2
+	
+	def insertKey(self, key):
+		heappush(self.heapvalue, key)		
+
+
+	def decreaseKeyValues(self, m, new_node_val):
+		self.heapvalue[m] = new_node_val
+		while(m != 0 and self.heapvalue[self.parentnode(m)] > self.heapvalue[m]):
+			self.heapvalue[m] , self.heapvalue[self.parentnode(m)] = (
+			self.heapvalue[self.parentnode(m)], self.heapvalue[m])
+			
+	def extractMinImplementation(self):
+		return heappop(self.heapvalue)
+
+	def deleteKeyValues(self, m):
+		self.decreaseKeyValues(m, float("-inf"))
+		self.extractMinImplementation()
+
+	def getMinKeyValue(self):
+		return self.heapvalue[0]
+
+
+heapObject = MinHeapImplementation()
+heapObject.insertKey(3)
+heapObject.insertKey(2)
+heapObject.deleteKeyValues(1)
+heapObject.insertKey(15)
+heapObject.insertKey(5)
+heapObject.insertKey(4)
+heapObject.insertKey(45)
+
+print (heapObject.extractMinImplementation())
+print (heapObject.getMinKeyValue())
+heapObject.decreaseKeyValues(2, 1)
+print (heapObject.getMinKeyValue())
+
+
