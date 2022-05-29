@@ -1,0 +1,69 @@
+# Trie / Digital Tree in Python
+
+class TrieNodeImplementation:
+	
+	def __init__(self):
+		self.childrennode = [None]*26
+
+		self.isEndOfWordExist = False
+
+class TrieImplementation:
+	
+	def __init__(self):
+		self.rootnode = self.getNode()
+
+	def getNode(self):
+
+		return TrieNodeImplementation()
+
+	def _charToIndexImplementation(self,ch):
+		
+		return ord(ch)-ord('a')
+
+
+	def insertImplementation(self,keynode):
+		
+		pCrawlnode = self.rootnode
+		lengthoftrie = len(keynode)
+		for m in range(lengthoftrie):
+			indexvalue = self._charToIndexImplementation(keynode[m])
+
+			if not pCrawlnode.childrennode[indexvalue]:
+				pCrawlnode.childrennode[indexvalue] = self.getNode()
+			pCrawlnode = pCrawlnode.childrennode[indexvalue]
+
+		pCrawlnode.isEndOfWordExist = True
+
+	def searchImplementation(self, keynode):
+		
+		pCrawlnode = self.rootnode
+		lengthoftrie = len(keynode)
+		for m in range(lengthoftrie):
+			indexvalue = self._charToIndexImplementation(keynode[m])
+			if not pCrawlnode.childrennode[indexvalue]:
+				return False
+			pCrawlnode = pCrawlnode.childrennode[indexvalue]
+
+		return pCrawlnode.isEndOfWordExist
+
+def main():
+
+	keysnode = ["the","a","there","anaswe","any",
+			"by","their"]
+	output = ["Not present in trie",
+			"Present in trie"]
+
+	trie = TrieImplementation()
+
+	for keynode in keysnode:
+		trie.insertImplementation(keynode)
+
+	print("{} ---- {}".format("the",output[trie.searchImplementation("the")]))
+	print("{} ---- {}".format("these",output[trie.searchImplementation("these")]))
+	print("{} ---- {}".format("their",output[trie.searchImplementation("their")]))
+	print("{} ---- {}".format("thaw",output[trie.searchImplementation("thaw")]))
+
+if __name__ == '__main__':
+	main()
+
+

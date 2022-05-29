@@ -1,0 +1,89 @@
+
+// Trie / Digital Tree in JS
+let ALPHABET_SIZE_VALUE = 26;
+
+class TrieNodeImplementation
+{
+	constructor()
+	{
+		this.isEndOfWordExist = false;
+		this.childrennode = new Array(ALPHABET_SIZE_VALUE);
+		for (let m = 0; m < ALPHABET_SIZE_VALUE; m++)
+			this.childrennode[m] = null;
+	}
+}
+
+let rootnode;
+
+function insertImplementation(keynode)
+{
+	let l;
+		let length = keynode.length;
+		let indexvalue;
+	
+		let pCrawlnode = rootnode;
+	
+		for (l = 0; l < length; l++)
+		{
+			indexvalue = keynode[l].charCodeAt(0) - 'a'.charCodeAt(0);
+			if (pCrawlnode.childrennode[indexvalue] == null)
+				pCrawlnode.childrennode[indexvalue] = new TrieNodeImplementation();
+	
+			pCrawlnode = pCrawlnode.childrennode[indexvalue];
+		}
+	
+		pCrawlnode.isEndOfWordExist = true;
+}
+
+function searchImplementation(keynode)
+{
+	let l;
+		let length = keynode.length;
+		let indexvalue;
+		let pCrawlnode = rootnode;
+	
+		for (l = 0; l < length; l++)
+		{
+			indexvalue = keynode[l].charCodeAt(0) - 'a'.charCodeAt(0);
+	
+			if (pCrawlnode.childrennode[indexvalue] == null)
+				return false;
+	
+			pCrawlnode = pCrawlnode.childrennode[indexvalue];
+		}
+	
+		return (pCrawlnode.isEndOfWordExist);
+}
+
+let keysnode = ["the", "a", "there", "answer", "any",
+				"by", "bye", "their"];
+
+let outputnode = ["Not present in trie", "Present in trie"];
+
+
+rootnode = new TrieNodeImplementation();
+
+let m;
+for (m = 0; m < keysnode.length ; m++)
+	insertImplementation(keysnode[m]);
+
+if(searchImplementation("the") == true)
+	document.write("the --- " + outputnode[1]+"<br>");
+else
+	document.write("the --- " + outputnode[0]+"<br>");
+
+if(searchImplementation("these") == true)
+	document.write("these --- " + outputnode[1]+"<br>");
+else
+	document.write("these --- " + outputnode[0]+"<br>");
+
+if(searchImplementation("their") == true)
+	document.write("their --- " + outputnode[1]+"<br>");
+else
+	document.write("their --- " + outputnode[0]+"<br>");
+
+if(searchImplementation("thaw") == true)
+	document.write("thaw --- " + outputnode[1]+"<br>");
+else
+	document.write("thaw --- " + outputnode[0]+"<br>");
+
